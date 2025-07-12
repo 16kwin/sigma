@@ -1,0 +1,52 @@
+.firstdiagramm {
+  background-color: white;
+  border: 1px solid #42C2F4;
+  flex-grow: 1;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.diagram-header {
+  background-color: #42C2F4;
+  color: white;
+  padding: 12px 20px; /* Больше отступ слева-справа */
+  text-align: left;
+  padding: 12px;
+  font-weight: bold;
+  border-radius: 6px 6px 0 0;
+  margin: -10px -10px 10px -10px; /* Компенсируем padding родителя */
+}
+
+.blocks-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
+  flex-grow: 1;
+}
+
+.block {
+  background: white;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+   transition: transform 0.2s ease;
+}
+
+/* Индивидуальные стили блоков (опционально) */
+.block1 { background-color: #FFF8E1; }
+.block2 { background-color: #E1F5FE; }
+.block3 { background-color: #E8F5E9; }
+.block4 { background-color: #F3E5F5; }
+.block5 { background-color: #FFEBEE; }
+.block6 { background-color: #E0F7FA; }
+.block:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}

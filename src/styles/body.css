@@ -1,0 +1,26 @@
+.bodyinfo {
+  background-color: #FFFFFF; /* Серый фон страницы */
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* или любая нужная высота */
+}
+.top-item {
+  flex: 1; /* все три элемента будут одинаковой ширины */
+  border: 1px solid #ccc;
+  padding: 20px;
+  text-align: center;
+}
+
+.bottom-item {
+  flex: 1; /* займет столько же места, сколько и top-row */
+  border: 1px solid #ccc;
+  padding: 20px;
+  text-align: center;
+}

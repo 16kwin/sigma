@@ -1,0 +1,80 @@
+/* Основной контейнер */
+.depo-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: antiquewhite;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Главная шапка */
+.depo-main-header {
+  background-color: #42C2F4;
+  color: white;
+  padding: 14px 20px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 1.2em;
+  border-radius: 6px 6px 0 0;
+}
+
+/* Контейнер таблицы */
+.depo-container {
+  flex-grow: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+/* Шапка таблицы */
+.depo-table-header {
+  display: flex;
+  background-color: #f5f5f5;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Тело таблицы с прокруткой */
+.depo-table-body {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+/* Строки и ячейки */
+.depo-row {
+  display: flex;
+  min-height: 40px;
+  border-bottom: 1px solid #eee;
+}
+
+.depo-cell {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-right: 1px solid #eee;
+}
+
+/* Цветовая индикация (без кружков) */
+.success {
+  background-color: #E8F5E9;
+}
+
+.error {
+  background-color: #FFEBEE;
+}
+
+/* Фикс для последней ячейки */
+.depo-cell:last-child {
+  border-right: none;
+}

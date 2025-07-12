@@ -1,0 +1,96 @@
+.table-container {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-size: 7px;
+  max-height: 100vh;
+}
+
+.table-format {
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: separate;
+  table-layout: fixed;
+}
+
+.colonka,
+.stroka,
+.colonkahead,
+.strokahead {
+  border: 1px solid #ccc; /* Серые границы */
+  min-height: 30px; /* Минимальная высота ячейки */
+  /* Убираем border-radius от ячеек */
+}
+
+.head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border: 1px solid #ccc; /* Серые границы */
+  background-color: white;
+}
+
+.head::before {
+  content: "";
+  position: absolute;
+  top: -5vh;
+  left: 0;
+  width: 110%;
+  height: 8vh;
+  background-color: white;
+  z-index: -1;
+}
+
+/* Чередование цветов строк (голубой) */
+.table-format tbody tr:nth-child(odd) {
+  background-color: color-mix(in srgb, #42c2f4 11%, white); /* Голубой фон для нечетных строк */
+}
+
+/* Запрет на перенос слов (перенос только целыми словами) */
+.colonka,
+.colonkahead {
+  word-break: keep-all; /* Запрещаем перенос слов и чисел */
+  overflow-wrap: break-word; /* Разрешаем перенос длинных слов, если не помещаются */
+  white-space: normal; /* Разрешаем перенос текста на новую строку */
+}
+
+/* tbody стили*/
+.table-format tbody {
+  border-radius: 10px; /* Скругляем углы у tbody */
+  overflow: hidden; /* Обрезаем контент по границам tbody */
+  transition: transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out; /* Плавная анимация */
+}
+
+.table-format tbody:hover {
+  transform: translateY(-5px) scale(1.02); /* Поднимаем и немного увеличиваем */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавляем тень */
+  cursor: pointer; /* Изменяем курсор */
+}
+
+.green {
+  background-color: lightgreen;
+  color: black;
+}
+
+.red {
+  background-color: lightcoral;
+  color: black;
+}
+
+.date-cell {
+  white-space: nowrap; /* Запрещает перенос строк в ячейках с датами */
+}
+
+/* Применяем word-break: keep-all; ко всем ячейкам, включая те, где даты и числа */
+.colonka {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+.no-break {
+  white-space: nowrap;
+   overflow-wrap: break-word;
+}

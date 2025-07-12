@@ -1,0 +1,47 @@
+/* Основной контейнер */
+.third-container {
+  background-color: white;
+  border: 1px solid #42C2F4;
+  flex-grow: 1;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Стили шапки */
+.third-header {
+  background-color: #42C2F4;
+  color: white;
+  padding: 14px 20px;
+  text-align: left;
+  font-weight: 600;
+  border-radius: 6px 6px 0 0;
+  margin: -10px -10px 12px -10px;
+  font-size: 1.1em;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #0D47A1; /* Граница под шапкой */
+}
+
+/* Основной блок содержимого */
+.third-main-block {
+  background: white;
+  border-radius: 6px;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border: 1px solid #2196F3; /* Синяя граница */
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+/* Эффекты при наведении */
+.third-main-block:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  border-color: #0D47A1; /* Темнеет при наведении */
+}
