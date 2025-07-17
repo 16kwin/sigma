@@ -1,12 +1,12 @@
 .firstdiagramm {
   background-color: white;
   border: 1px solid #42C2F4;
-  flex-grow: 1;
   margin: 10px;
   padding: 10px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .diagram-header {
@@ -22,8 +22,7 @@
 
 .blocks-wrapper {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   flex-grow: 1;
 }
@@ -34,19 +33,73 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border: 1px solid #e0e0e0;
-   transition: transform 0.2s ease;
+  transition: transform 0.2s ease;
+  text-align: center; /* Центрируем текст */ /* Увеличиваем размер шрифта */
+  font-weight: bold; /* Делаем текст жирным */
+}
+.block.block5 {
+  display: flex; /* Используем Flexbox */
+  flex-direction: column; /* Располагаем элементы вертикально */
+  align-items: center; /* Центрируем элементы по горизонтали (ось cross-axis) */
+  text-align: center; /* Выравниваем текст по центру (для заголовка и всего, что не flex-элемент) */
+  border: 1px solid #ccc; /* Для наглядности */
+  padding: 10px;
+}
+
+.block5-header {
+  font-weight: bold; /* Пример стилизации заголовка */
+  margin-bottom: 10px; /* Отступ снизу от заголовка */
+  width: 100%; /* Чтобы text-align: center работал корректно */
+}
+
+.block5-content {
+  display: flex; /* Используем Flexbox для содержимого */
+  justify-content: space-between; /* Размещаем элементы по краям */
+  align-items: flex-start; /* Выравниваем по верху (если есть разная высота) */
+  width: 100%; /* Чтобы span'ы занимали всю ширину */
+}
+
+.block5-content .left-part {
+  flex-grow: 1; /* Левая часть занимает доступное пространство */
+  text-align: left; /* Текст внутри левой части выравниваем по левому краю */
+  padding-right: 10px; /* Отступ справа для разделения */
+}
+
+.block5-content .right-part {
+  flex-shrink: 0; /* Правая часть не сжимается */
+  text-align: right; /* Текст внутри правой части выравниваем по правому краю */
+  padding-left: 10px; /* Отступ слева для разделения */
+  white-space: nowrap; /* Предотвращаем перенос строк для "часов" */
+}
+
+/* Если нужно, чтобы "часов" было под текстом правой части, а не рядом */
+.block5-content .right-part br {
+    display: block; /* Делает <br/> блочным элементом */
+    margin-bottom: 5px; /* Отступ после <br/> */
 }
 
 /* Индивидуальные стили блоков (опционально) */
-.block1 { background-color: #FFF8E1; }
-.block2 { background-color: #E1F5FE; }
-.block3 { background-color: #E8F5E9; }
-.block4 { background-color: #F3E5F5; }
-.block5 { background-color: #FFEBEE; }
-.block6 { background-color: #E0F7FA; }
+.block1 {
+  background-color: #FFF8E1;
+}
+.block2 {
+  background-color: #E1F5FE;
+}
+.block3 {
+  background-color: #E8F5E9;
+}
+.block4 {
+  background-color: #F3E5F5;
+}
+.block5 {
+  background-color: #FFEBEE;
+}
+.block6 {
+  background-color: #E0F7FA;
+}
 .block:hover {
   transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }

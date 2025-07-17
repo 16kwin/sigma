@@ -1,26 +1,29 @@
-.bodyinfo {
-  background-color: #FFFFFF; /* Серый фон страницы */
-  margin: 0;
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-}
 .container {
   display: flex;
   flex-direction: column;
   height: 100vh; /* или любая нужная высота */
 }
-.top-item {
-  flex: 1; /* все три элемента будут одинаковой ширины */
-  border: 1px solid #ccc;
-  padding: 20px;
-  text-align: center;
+
+.diagram-container {
+  flex: 1; /* Диаграммы занимают половину высоты */
+  max-height: 50vh; /* Ограничиваем максимальную высоту */
+  overflow: hidden; /* Скрываем лишнее, если содержимое больше высоты */
+}
+
+.bodyinfo {
+  background-color: #FFFFFF;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: row;
+  height: 100%; /* Важно: Растягиваем на всю высоту diagram-container */
 }
 
 .bottom-item {
-  flex: 1; /* займет столько же места, сколько и top-row */
+  flex: 1; /* Таблица занимает половину высоты */
+  max-height: 50vh; /* Ограничиваем максимальную высоту */
   border: 1px solid #ccc;
   padding: 20px;
   text-align: center;
+  overflow: hidden; /* Добавляем прокрутку, если контент не помещается */
 }

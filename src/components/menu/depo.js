@@ -1,26 +1,13 @@
 import React from 'react';
 import "../../styles/depo.css";
 
-function Depo() {
-  // Пример данных
-  const transactions = [
-    { id: 'TR-2023-001', status: 'completed' },
-    { id: 'TR-2023-002', status: 'in-progress' },
-    { id: 'TR-2023-003', status: 'failed' },
-    { id: 'TR-2023-004', status: 'completed' },
-    { id: 'TR-2023-005', status: 'pending' }
-  ];
+function Depo({ data }) {
+  // Проверяем, что данные были получены
+  if (!data || !data.transactions) {
+    return <div>Загрузка данных...</div>; // Или какое-то другое сообщение
+  }
 
-  // Статусы проверок
-  const checkStatus = {
-    inputControl: true,
-    connection: false,
-    mechanic: true,
-    electrician: false,
-    technologist: true,
-    outputControl: false,
-    transport: true
-  };
+  const { transactions } = data;
 
   return (
     <div className="depo-wrapper">
@@ -28,7 +15,7 @@ function Depo() {
       <div className="depo-main-header">
         Депо транзакций
       </div>
-      
+
       {/* Контейнер таблицы */}
       <div className="depo-container">
         {/* Шапка таблицы */}
@@ -46,15 +33,15 @@ function Depo() {
         {/* Тело таблицы */}
         <div className="depo-table-body">
           {transactions.map((transaction) => (
-            <div key={transaction.id} className="depo-row">
-              <div className="depo-cell">{transaction.id}</div>
-              <div className={`depo-cell ${checkStatus.inputControl ? 'success' : 'error'}`}></div>
-              <div className={`depo-cell ${checkStatus.connection ? 'success' : 'error'}`}></div>
-              <div className={`depo-cell ${checkStatus.mechanic ? 'success' : 'error'}`}></div>
-              <div className={`depo-cell ${checkStatus.electrician ? 'success' : 'error'}`}></div>
-              <div className={`depo-cell ${checkStatus.technologist ? 'success' : 'error'}`}></div>
-              <div className={`depo-cell ${checkStatus.outputControl ? 'success' : 'error'}`}></div>
-              <div className={`depo-cell ${checkStatus.transport ? 'success' : 'error'}`}></div>
+            <div key={transaction.transaction} className="depo-row">
+              <div className="depo-cell">{transaction.transaction}</div>
+              <div className={`depo-cell ${transaction.vhodControlTimeExceeded === 'да' ? 'success' : (transaction.vhodControlTimeExceeded === 'Нет данных' ? 'yellow' : 'error')}`}></div>
+              <div className={`depo-cell ${transaction.electricTimeExceeded === 'да' ? 'success' : (transaction.electricTimeExceeded === 'Нет данных' ? 'yellow' : 'error')}`}></div>
+              <div className={`depo-cell ${transaction.mechanicTimeExceeded === 'да' ? 'success' : (transaction.mechanicTimeExceeded === 'Нет данных' ? 'yellow' : 'error')}`}></div>
+              <div className={`depo-cell ${transaction.electronTimeExceeded === 'да' ? 'success' : (transaction.electronTimeExceeded === 'Нет данных' ? 'yellow' : 'error')}`}></div>
+              <div className={`depo-cell ${transaction.techTimeExceeded === 'да' ? 'success' : (transaction.techTimeExceeded === 'Нет данных' ? 'yellow' : 'error')}`}></div>
+              <div className={`depo-cell ${transaction.vihodControlTimeExceeded === 'да' ? 'success' : (transaction.vihodControlTimeExceeded === 'Нет данных' ? 'yellow' : 'error')}`}></div>
+              <div className={`depo-cell ${transaction.transportTimeExceeded === 'да' ? 'success' : (transaction.transportTimeExceeded === 'Нет данных' ? 'yellow' : 'error')}`}></div>
             </div>
           ))}
         </div>

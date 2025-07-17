@@ -2,7 +2,36 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TableFilter from './TableFilter'; // Убедитесь, что путь правильный
 import "./table.css";
+function calculateDays(days) {
+  if (!days || days === "Нет данных") {
+    return "Нет данных";
+  }
 
+  const daysInt = parseInt(days, 10); // Преобразуем в число
+
+  const remainder10 = daysInt % 10;
+  const remainder100 = daysInt % 100;
+
+  if (remainder10 === 1 && remainder100 !== 11) {
+    return `(${daysInt} рабочий день)`;
+  } else if (remainder10 >= 2 && remainder10 <= 4 && (remainder100 < 10 || remainder100 >= 20)) {
+    return `(${daysInt} рабочих дня)`;
+  } else {
+    return `(${daysInt} рабочих дней)`;
+  }
+}
+
+function calculateDaysFromTime(time) {
+  if (!time || time === "Нет данных") {
+    return "Нет данных";
+  }
+
+  const [hours, minutes, seconds] = time.split(':').map(Number);
+  const totalHours = hours + minutes / 60 + seconds / 3600;
+  const days = Math.ceil(totalHours / 8); // 8 рабочих часов в день
+
+  return calculateDays(days); // Вызываем функцию для форматирования
+}
 function Table() {
   const [jsonData, setJsonData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,7 +41,7 @@ function Table() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/analis/transactions');
+        const response = await axios.get('http://194.87.56.253:8080/api/analis/transactions');
         setJsonData(response.data);
         setFilteredTransactions(response.data.transactions); // Инициализируем filteredTransactions
       } catch (err) {
@@ -147,9 +176,13 @@ function Table() {
         <td className="colonka">0:00</td>
         <td className="colonka">{transactions.vhodControlWorkTime}</td>
         <td className="colonka"   
-        style={{
+       style={{
     backgroundColor:
-      transactions.vhodControlTimeExceeded === 'Да' ? 'lightgreen' : 'lightcoral',
+      transactions.vhodControlTimeExceeded === 'Нет данных'
+        ? 'lightyellow'
+        : parseFloat(transactions.vhodControlTimeExceeded.replace(',', '.').replace('%', '')) >= 100
+          ? 'lightgreen'
+          : 'lightcoral',
   }}>{transactions.vhodControlTimeExceeded}</td>
         <td className="colonka">0</td>
         <td className="colonka">{transactions.planDateStart}</td>
@@ -178,15 +211,19 @@ function Table() {
         <td className="colonka">{transactions.electricNorm}:00 </td>
         <td className="colonka">{transactions.electricTotalWorktime}</td>
         <td className="colonka" 
-          style={{
+         style={{
     backgroundColor:
-      transactions.electricTimeExceeded === 'Да' ? 'lightgreen' : 'lightcoral',
+      transactions.electricTimeExceeded === 'Нет данных'
+        ? 'lightyellow'
+        : parseFloat(transactions.electricTimeExceeded.replace(',', '.').replace('%', '')) >= 100
+          ? 'lightgreen'
+          : 'lightcoral',
   }}>{transactions.electricTimeExceeded}</td>
         <td className="colonka">{transactions.electricProblemHours} </td>
         <td className="colonka">{transactions.planDate1}</td>
         <td className="colonka">{transactions.factDate1}</td>
         <td className="colonka">{transactions.podkluchenieStartTime}</td>
-        <td className="colonka">{transactions.timeBetweenVhodAndPodkluchenie}</td>
+        <td className="colonka">{transactions.timeBetweenVhodAndPodkluchenie}<br/>{calculateDaysFromTime(transactions.timeBetweenVhodAndPodkluchenie)}</td>
         <td className="colonka">{transactions.podkluchenieEmployee} <span className='no-break'><br/>Операция:{transactions.podkluchenieWorkTime}<br/>Опция:{transactions.electricOptionWorktype}</span></td>
         <td className="colonka"></td>
         <td className="colonka"></td>
@@ -206,16 +243,20 @@ function Table() {
         <td className="colonka">{header.mechOperationNorm}:00</td>
         <td className="colonka">{transactions.mechanicNorm}:00</td>
         <td className="colonka">{transactions.mechanicTotalWorktime}</td>
-        <td className="colonka"   style={{
+        <td className="colonka"  style={{
     backgroundColor:
-      transactions.mechanicTimeExceeded === 'Да' ? 'lightgreen' : 'lightcoral',
+      transactions.mechanicTimeExceeded === 'Нет данных'
+        ? 'lightyellow'
+        : parseFloat(transactions.mechanicTimeExceeded.replace(',', '.').replace('%', '')) >= 100
+          ? 'lightgreen'
+          : 'lightcoral',
   }}>{transactions.mechanicTimeExceeded}</td>
         <td className="colonka">{transactions.mechanicProblemHours}</td>
         <td className="colonka">{transactions.planDate2}</td>
         <td className="colonka">{transactions.factDate2}</td>
         <td className="colonka"> {transactions.proverkaMehanikomStartTime}</td>
         <td className="colonka"></td>
-        <td className="colonka">{transactions.timeBetweenPodkluchenieAndProverkaMehanikom}</td>
+        <td className="colonka">{transactions.timeBetweenPodkluchenieAndProverkaMehanikom}<br/>{calculateDaysFromTime(transactions.timeBetweenPodkluchenieAndProverkaMehanikom)}</td>
         <td className="colonka">{transactions.proverkaMehanikomEmployee} <span className='no-break'><br/>Операция:{transactions.proverkaMehanikomWorkTime}<br/>Опция:{transactions.mechanicOptionWorktype}</span></td>
         <td className="colonka"></td>
         <td className="colonka"></td>
@@ -235,9 +276,13 @@ function Table() {
         <td className="colonka">{header.electronOperationNorm}:00</td>
         <td className="colonka">{transactions.electronNorm}:00</td>
         <td className="colonka">{transactions.electronTotalWorktime}</td>
-        <td className="colonka"   style={{
+        <td className="colonka"  style={{
     backgroundColor:
-      transactions.electronTimeExceeded === 'Да' ? 'lightgreen' : 'lightcoral',
+      transactions.electronTimeExceeded === 'Нет данных'
+        ? 'lightyellow'
+        : parseFloat(transactions.electronTimeExceeded.replace(',', '.').replace('%', '')) >= 100
+          ? 'lightgreen'
+          : 'lightcoral',
   }}>{transactions.electronTimeExceeded}</td>
         <td className="colonka">{transactions.electronProblemHours}</td>
         <td className="colonka">{transactions.planDate3}</td>
@@ -245,7 +290,7 @@ function Table() {
         <td className="colonka">{transactions.proverkaElectronStartTime}</td>
         <td className="colonka"></td>
         <td className="colonka"></td>
-        <td className="colonka">{transactions.timeBetweenProverkaMehanikomAndProverkaElectron}</td>
+        <td className="colonka">{transactions.timeBetweenProverkaMehanikomAndProverkaElectron}<br/>{calculateDaysFromTime(transactions.timeBetweenProverkaMehanikomAndProverkaElectron)}</td>
         <td className="colonka">{transactions.proverkaElectronEmployee} <span className='no-break'><br/>Операция:{transactions.proverkaElectronWorkTime}<br/>Опция{transactions.electronOptionWorktype}</span>
         </td>
         <td className="colonka"></td>
@@ -266,7 +311,11 @@ function Table() {
         <td className="colonka">{transactions.techTotalWorktime}</td>
         <td className="colonka"   style={{
     backgroundColor:
-      transactions.techTimeExceeded === 'Да' ? 'lightgreen' : 'lightcoral',
+      transactions.techTimeExceeded === 'Нет данных'
+        ? 'lightyellow'
+        : parseFloat(transactions.techTimeExceeded.replace(',', '.').replace('%', '')) >= 100
+          ? 'lightgreen'
+          : 'lightcoral',
   }}>{transactions.techTimeExceeded}</td>
         <td className="colonka">{transactions.techProblemHours}</td>
         <td className="colonka">{transactions.planDate4}</td>
@@ -275,7 +324,7 @@ function Table() {
         <td className="colonka"></td>
         <td className="colonka"></td>
         <td className="colonka"></td>
-        <td className="colonka">{transactions.timeBetweenProverkaElectronAndProverkaTehnologom}</td>
+        <td className="colonka">{transactions.timeBetweenProverkaElectronAndProverkaTehnologom}<br/>{calculateDaysFromTime(transactions.timeBetweenProverkaElectronAndProverkaTehnologom)}</td>
         <td className="colonka">{transactions.proverkaTehnologomEmployee} <span className='no-break'><br/>Операция:{transactions.proverkaTehnologomWorkTime}<br/>Опция:{transactions.techOptionWorktype}</span></td>
         <td className="colonka"></td>
         <td className="colonka"></td>
@@ -292,9 +341,13 @@ function Table() {
             <td className="colonka">{header.vihodNorm}:00</td>
         <td className="colonka">0:00</td>
         <td className="colonka">{transactions.vihodControlWorkTime}</td>
-        <td className="colonka"   style={{
+        <td className="colonka"  style={{
     backgroundColor:
-      transactions.vihodControlTimeExceeded === 'Да' ? 'lightgreen' : 'lightcoral',
+      transactions.vihodControlTimeExceeded === 'Нет данных'
+        ? 'lightyellow'
+        : parseFloat(transactions.vihodControlTimeExceeded.replace(',', '.').replace('%', '')) >= 100
+          ? 'lightgreen'
+          : 'lightcoral',
   }}>{transactions.vihodControlTimeExceeded}</td>
         <td className="colonka">0</td>
         <td className="colonka">{transactions.planDate5}</td>
@@ -304,7 +357,7 @@ function Table() {
         <td className="colonka"></td>
         <td className="colonka"></td>
         <td className="colonka"></td>
-        <td className="colonka">{transactions.timeBetweenProverkaTehnologomAndVihodControl}</td>
+        <td className="colonka">{transactions.timeBetweenProverkaTehnologomAndVihodControl}<br/>{calculateDaysFromTime(transactions.timeBetweenProverkaTehnologomAndVihodControl)}</td>
         <td className="colonka">{transactions.vihodControlEmployee} <span className='no-break'><br/>Операция:{transactions.vihodControlWorkTime}<br/>Опция:00.00.00</span></td>
         <td className="colonka"></td>
         <td className="colonka">{transactions.planDate6}</td>
@@ -320,9 +373,13 @@ function Table() {
         <td className="colonka">{header.transportNorm}:00</td>
         <td className="colonka">0:00</td>
         <td className="colonka">{transactions.transportPolozhenieWorkTime}</td>
-        <td className="colonka"   style={{
+        <td className="colonka"  style={{
     backgroundColor:
-      transactions.transportTimeExceeded === 'Да' ? 'lightgreen' : 'lightcoral',
+      transactions.transportTimeExceeded === 'Нет данных'
+        ? 'lightyellow'
+        : parseFloat(transactions.transportTimeExceeded.replace(',', '.').replace('%', '')) >= 100
+          ? 'lightgreen'
+          : 'lightcoral',
   }}>{transactions.transportTimeExceeded}</td>
         <td className="colonka">{transactions.complexProblemHours}</td>
         <td className="colonka">{transactions.planDate6}</td>
@@ -333,7 +390,7 @@ function Table() {
         <td className="colonka"></td>
         <td className="colonka"></td>
         <td className="colonka"></td>
-        <td className="colonka">{transactions.timeBetweenVihodControlAndTransportPolozhenie}</td>
+        <td className="colonka">{transactions.timeBetweenVihodControlAndTransportPolozhenie}<br/>{calculateDaysFromTime(transactions.timeBetweenVihodControlAndTransportPolozhenie)}</td>
         <td className="colonka">{transactions.transportPolozhenieEmployee} <span className='no-break'><br/>Операция:{transactions.transportPolozhenieWorkTime}<br/>Опция:00.00.00</span></td>
         <td className="colonka">{transactions.planDate7}</td>
         <td className="colonka">{transactions.factDate7}</td>
@@ -347,7 +404,7 @@ function Table() {
         <td className="colonka">Отклонение от плана (План ППП/Факт ППП)</td>
         <td className="colonka" style={{
     backgroundColor:
-      parseFloat(transactions.percentagePlanPpp.replace(',', '.').replace('%', '')) > 100
+      parseFloat(transactions.percentagePlanPpp.replace(',', '.').replace('%', '')) >= 100
         ? 'lightgreen'
         : 'lightcoral',
   }}>{transactions.percentagePlanPpp}</td>
@@ -369,7 +426,7 @@ function Table() {
         <td className="colonka">{transactions.totalTimeBetweenOperations}</td>
         <td className="colonka"></td>
         <td className="colonka">Итоговое время цикла</td>
-        <td className="colonka">{transactions.totalTimeAll}</td>
+        <td className="colonka">{transactions.totalTimeAll}<br/>{calculateDaysFromTime(transactions.totalTimeAll)}</td>
         <td className="colonka"></td>
         <td className="colonka"></td>
         <td className="colonka"></td>

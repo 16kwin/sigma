@@ -1,13 +1,14 @@
 /* Основной контейнер */
 .second-container {
+  flex-shrink: 0;
   background-color: white;
   border: 1px solid #42C2F4;
-  flex-grow: 1;
   margin: 10px;
   padding: 10px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+   flex: 1;
 }
 
 /* Шапка компонента */
