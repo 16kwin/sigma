@@ -4,8 +4,9 @@
   display: flex;
   flex-direction: column;
   border-radius: 8px;
-  overflow: auto;
+  overflow: hidden;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background: white;
 }
 
 /* Главная шапка */
@@ -16,20 +17,13 @@
   text-align: left;
   font-weight: 600;
   font-size: 1.2em;
-  border-radius: 6px 6px 0 0;
 }
 
 /* Контейнер таблицы */
 .depo-container {
-  flex-grow: 1;
-  overflow: auto; /* Важно: Скрывает прокрутку по горизонтали */
   display: flex;
   flex-direction: column;
-  margin: 10px;
-  background: white;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  height: 100%; /* Добавляем высоту */
+  overflow: hidden;
 }
 
 /* Шапка таблицы */
@@ -38,25 +32,48 @@
   background-color: #f5f5f5;
   font-weight: bold;
   border-bottom: 1px solid #ddd;
-  position: sticky; /* Фиксируем шапку */
-  top: 0;          /* Прилипает к верху контейнера */
-  z-index: 1;      /* Обеспечиваем отображение поверх контента */
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 
-/* Тело таблицы с прокруткой */
+/* Обертка тела таблицы */
+.depo-table-body-wrapper {
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+/* Тело таблицы */
 .depo-table-body {
-  flex-grow: 1;
-  overflow-y: auto; /* Прокрутка только по вертикали */
-  max-height: 300px; /* или любое другое значение */
+  position: absolute;
+  width: 100%;
+  animation: scroll-up 10s linear infinite;
 }
 
-/* Строки и ячейки */
+.depo-table-body.paused {
+  animation-play-state: paused;
+}
+
+/* Анимация прокрутки */
+@keyframes scroll-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+/* Строки таблицы */
 .depo-row {
   display: flex;
   min-height: 40px;
   border-bottom: 1px solid #eee;
 }
 
+/* Ячейки таблицы */
 .depo-cell {
   flex: 1;
   min-width: 120px;
@@ -71,18 +88,25 @@
 
 /* Цветовая индикация */
 .success {
-  background-color: lightgreen; /* Светло-зеленый */
+  background-color: #a3e4a3;
 }
 
 .error {
-  background-color: lightcoral; /* Светло-красный */
+  background-color: #ffa6a6;
 }
 
 .yellow {
-  background-color: lightyellow; /* Светло-желтый */
+  background-color: #fffacd;
 }
 
 /* Фикс для последней ячейки */
 .depo-cell:last-child {
   border-right: none;
+}
+
+/* Сообщение о загрузке */
+.depo-loading {
+  padding: 20px;
+  text-align: center;
+  color: #666;
 }

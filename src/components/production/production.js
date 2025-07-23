@@ -30,7 +30,7 @@ const Production = () => {
       setLoading(true);
       setError(null);
 
-      let apiUrl = 'http://194.87.56.253:8080/api/analis/employees';
+      let apiUrl = 'http://194.87.56.253:8081/api/analis/employees';
 
       if (filterParams.year && filterParams.month) {
         const formattedMonth = filterParams.month < 10 ? `0${filterParams.month}` : `${filterParams.month}`;
@@ -99,11 +99,11 @@ const Production = () => {
                 <th className = 'colonkahead head2'>Кол-во выполненных этапов</th>
                 <th className = 'colonkahead head2'>Кол-во этапов, <br/>выполненных в срок</th>
                 <th className = 'colonkahead head2'>Доля этапов, <br/>выполненных в срок</th>
-                <th className = 'colonkahead head2'>Нормативное время работы</th>
-                <th className = 'colonkahead head2'>Фактическое время работы</th>
-                <th className = 'colonkahead head2'>Коэффициент выполнености норм</th>
-                <th className = 'colonkahead head2'>Фонд рабочего времени</th>
-                <th className = 'colonkahead head2'>Выработка сотрудника</th>
+                <th className = 'colonkahead head2'>Нормативное время работы, час</th>
+                <th className = 'colonkahead head2'>Фактическое время работы, час</th>
+                <th className = 'colonkahead head2'>Коэффициент выполнености норм, %</th>
+                <th className = 'colonkahead head2'>Фонд рабочего времени, час</th>
+                <th className = 'colonkahead head2'>Выработка сотрудника, %</th>
               </tr>
             </thead>
             <tbody>

@@ -80,15 +80,9 @@
 
 .table-format2 tr {
   border-radius: 10px;
-  overflow: hidden;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Уменьшаем время анимации */
+  overflow: hidden; /* Уменьшаем время анимации */
 }
 
-.table-format2 tr:hover {
-  transform: translateY(-3px) scale(1.01); /* Уменьшаем эффект hover */
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Уменьшаем тень */
-  cursor: pointer;
-}
 
 .green {
   background-color: #c8e6c9; /* Более приятный оттенок зеленого */

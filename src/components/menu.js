@@ -4,7 +4,6 @@ import "../styles/menu.css";
 
 import Body from "./menu/body";
 import Info from "./info/info";
-import Losses from "./losses/losses";
 import Production from "./production/production";
 import Table from "./table/table";
 function Menu( { onLogout }) {
@@ -14,17 +13,18 @@ function Menu( { onLogout }) {
       case 'body': return <Body />;
       case 'production': return <Production />;
       case 'table': return <Table />;
-      case 'losses': return <Losses />;
       case 'info': return <Info />;
       default: return <Body />;
     }
   };
 return (
+  <div className="menu-container-out">
     <div className="bodycolor">
       <Header onLogout={onLogout} setActiveTab={setActiveTab} />
       <div className="content">
         {renderContent()}
       </div>
+    </div>
     </div>
     )
 }

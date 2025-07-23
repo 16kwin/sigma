@@ -2,7 +2,6 @@ import "./button.css";
 import osnova from "../../Основная.png";
 import doska from "../../Доска.png";
 import virab from "../../Выработка.png";
-import problem from "../../Отклонения.png";
 import info from "../../О программе.png";
 
 function Buttons({ setActiveTab }) {
@@ -33,15 +32,6 @@ function Buttons({ setActiveTab }) {
       >
         <img src={virab} alt="Icon 3" />
         <span>Выработка</span>
-      </button>
-
-      {/* Кнопка 4 */}
-      <button 
-        className="custom-button"
-        onClick={() => setActiveTab('losses')}
-      >
-        <img src={problem} alt="Icon 4" />
-        <span>Потери</span>
       </button>
 
       {/* Кнопка 5 */}

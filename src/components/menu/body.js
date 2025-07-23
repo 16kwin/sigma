@@ -14,7 +14,7 @@ function Body() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://194.87.56.253:8080/api/analis/depo");
+        const response = await fetch("http://194.87.56.253:8081/api/analis/depo");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -43,8 +43,8 @@ function Body() {
       <div className="diagram-container">
       <div className="bodyinfo">
         <FirstDiagramm header={depoData ? depoData.header : null} />
-        <SecondDiagramm />
-        <ThirdDiagramm />
+        <SecondDiagramm header={depoData ? depoData.header : null}/>
+        <ThirdDiagramm months={depoData ? depoData.months : null}/>
       </div></div>
       <div className="bottom-item">
         {depoData && <Depo data={depoData} />}

@@ -19,7 +19,7 @@ const ProductionFilter = ({ onFilterChange }) => {
     { value: 12, label: 'Декабрь' },
   ];
 
-  const [selectedYear, setSelectedYear] = useState(2023);
+  const [selectedYear, setSelectedYear] = useState(2025);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   // Новый стейт для выбора процента, по умолчанию 80
   const [selectedPercentage, setSelectedPercentage] = useState(80);

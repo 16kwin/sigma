@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './TableFilter.css';
 
-const TableFilter = ({ transactions, onFilter }) => {
+const TableFilter = ({ transactions, onFilter, header }) => {
   const [planDateStartMonth, setPlanDateStartMonth] = useState('');
   const [planDateStartYear, setPlanDateStartYear] = useState('');
   const [factDateStartMonth, setFactDateStartMonth] = useState('');
@@ -52,8 +52,27 @@ const TableFilter = ({ transactions, onFilter }) => {
 
   const years = Array.from({ length: 5 }, (_, i) => 2023 + i); // Создаем массив лет с 2022 по 2026
 
-    return (
-    <div className="filter-container">
+    return (       <div className="filter-container">
+      <table className="table-half-width">   
+<tr>
+ <th colspan="2">Всего человек</th> 
+ <th className="date-cell">Механик <br/>электрон. <br/>технолог <br/>электрик <br/>комплект.</th> 
+ <th>{header.mechanicCount}<br/>{header.eletronCount}<br/>{header.techCount}<br/>{header.elecCount}<br/>{header.conplectCount}</th> 
+ <th>Занято</th> 
+ <th className="date-cell">Механик <br/>электрон.<br/>технолог<br/>электрик <br/>комплект. </th>
+ <th className="date-cell">0<br/>0<br/>0<br/>0<br/>0</th>  
+ <th>Свободно</th> 
+ <th className="date-cell">Механик <br/>электрон. <br/>технолог <br/>электрик <br/>комплект.</th>
+ <th>{header.mechanicCount}<br/>{header.eletronCount}<br/>{header.techCount}<br/>{header.elecCount}<br/>{header.conplectCount}</th> 
+ <th>В работе станков</th> 
+ <th>{header.inProgressTransactionsCount}</th> 
+ <th>Станки в срок</th> 
+ <th className="green">{header.overfulfilledTransactionsCount}</th> 
+ <th>Станки не в срок</th> 
+ <th className="red">{header.underfulfilledTransactionsCount}</th> 
+ </tr>
+      </table>
+
       {/* Фильтр по planDateStart */}
       <label className="filter-label">
         Начало (план):

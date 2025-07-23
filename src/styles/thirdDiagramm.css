@@ -26,6 +26,44 @@
   border-bottom: 1px solid #0D47A1; /* Граница под шапкой */
 }
 
+/* Стили для контейнера "ОБЪЕМ ТРАНЗАКЦИЙ" и кнопок */
+.volume-and-buttons {
+  display: flex;
+  flex-direction: column; /* Размещаем элементы вертикально */
+  align-items: center; /* Выравниваем элементы по центру горизонтально */
+  margin-bottom: 10px; /* Отступ снизу */
+}
+
+/* Стили для текста "ОБЪЕМ ТРАНЗАКЦИЙ" */
+.volume-text {
+  font-size: 1.2em;
+  margin-bottom: 5px; /* Отступ снизу от текста до кнопок */
+}
+
+/* Стили для контейнера кнопок */
+.diagram-buttons {
+  display: flex;
+  justify-content: center; /* Выравниваем кнопки по центру горизонтально */
+}
+
+/* Стили для кнопок */
+.diagram-buttons button {
+  background-color: #5DADE2;
+  color: white;
+  font-size: 1em;
+  padding: 10px 20px;
+  margin: 0 10px; /* Отступы слева и справа */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Стили для кнопок при наведении */
+.diagram-buttons button:hover {
+  background-color: #2E86C1;
+}
+
 /* Основной блок содержимого */
 .third-main-block {
   background: white;
@@ -38,11 +76,4 @@
   border: 1px solid #2196F3; /* Синяя граница */
   padding: 20px;
   transition: all 0.3s ease;
-}
-
-/* Эффекты при наведении */
-.third-main-block:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  border-color: #0D47A1; /* Темнеет при наведении */
 }

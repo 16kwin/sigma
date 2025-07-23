@@ -1,5 +1,6 @@
 .filter-container {
   display: flex;
+  flex-direction: row; /* Размещаем элементы в строку */
   flex-wrap: wrap;
   gap: 10px;
   padding: 10px;
@@ -7,6 +8,8 @@
   border-radius: 5px;
   margin-bottom: 10px;
   background-color: #f9f9f9;
+  align-items: flex-start; /* Выравниваем элементы по верхнему краю */
+  width: 100%; /* Занимаем всю доступную ширину */
 }
 
 .filter-label {
@@ -25,4 +28,9 @@
 
 .filter-select {
   width: auto; /* Автоматическая ширина для select */
+}
+
+.table-half-width {
+  width: 50%; 
+  /* Занимает половину ширины контейнера */
 }
