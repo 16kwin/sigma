@@ -153,7 +153,9 @@ function SecondDiagramm({ header }) {
       legend: {
         display: true,
         position: 'right', 
-        align: 'start',  
+        labels: {
+                boxWidth: 12,   // Ширина цветного квадратика
+            }
       },
       tooltip: {
         enabled: true,
