@@ -152,7 +152,7 @@ function SecondDiagramm({ header }) {
     plugins: {
       legend: {
         display: true,
-        position: "bottom",
+        position: 'right',  
       },
       tooltip: {
         enabled: true,
