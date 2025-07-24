@@ -132,14 +132,14 @@ function SecondDiagramm({ header }) {
     },
   };
   const chartData4 = {
-    labels: ["Всего часов в месяце", "Отработано сотрудниками"],
+    labels: ["Фонд рабочего времени", "Выработка"],
     datasets: [
       {
         data: [
           isLoading ? 0 : header.totalHoursMounth,
           isLoading ? 0 : header.totalWorkTimeHoursFromEmployees,
         ],
-        backgroundColor: ["#9463FF", "#FF6384"], //  Другие цвета
+        backgroundColor: ["#63ff7dff", "#63e0ffff"], //  Другие цвета
         borderColor: "#ffffff",
         borderWidth: 2,
       },
@@ -175,6 +175,11 @@ function SecondDiagramm({ header }) {
         },
       },
     },
+     layout: {
+        padding: {
+            right: 20,  // Увеличиваем отступ справа для легенды
+        }
+    }
   };
  const renderCustomLegend = (data, isLoading) => {
     if (isLoading) return null;
