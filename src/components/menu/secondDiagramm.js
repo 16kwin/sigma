@@ -151,7 +151,8 @@ function SecondDiagramm({ header }) {
     aspectRatio: 4,
     plugins: {
       legend: {
-        display: false, //  Отключаем легенду (или настраиваем по желанию)
+        display: true,
+        position: "bottom",
       },
       tooltip: {
         enabled: true,
