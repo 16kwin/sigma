@@ -154,6 +154,9 @@ function SecondDiagramm({ header }) {
         display: true,
         position: 'right', 
         labels: {
+          font: {
+                    size: 10, // Уменьшаем размер шрифта
+                },
                 boxWidth: 12,   // Ширина цветного квадратика
             }
       },
