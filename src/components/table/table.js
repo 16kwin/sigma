@@ -70,13 +70,23 @@ function Table() {
   }
 
   const { header, transactions } = jsonData;
+const getAdjustedPercentage = (value) => {
+  if (value === 'Нет данных') return 0;
+  const num = parseFloat(value.replace(',', '.').replace('%', ''));
+  return num - 100;
+};
 
+// 2. Форматирует результат: "+X.XX%" или "X.XX%"
+const formatAdjustedPercentage = (value) => {
+  if (value === 'Нет данных'|| value === 'Контроль руководителя' ) return value;
+  const adjusted = getAdjustedPercentage(value);
+  return adjusted >= 0 
+    ? `${adjusted.toFixed(2).replace('.', ',')}%` 
+    : `${Math.abs(adjusted).toFixed(2).replace('.', ',')}%`;
+};
   return (
     <div className="table-container">
       <TableFilter transactions={transactions} onFilter={setFilteredTransactions} header={header} />
-      <br/>
-      <br/>
-      <br/>
       <br/>
       <br/>{/* Оборачиваем таблицу в div */}
         <table className="table-format">
@@ -153,15 +163,19 @@ function Table() {
                   <td className="colonka">{header.vhodNorm}:00</td>
                   <td className="colonka">0:00</td>
                   <td className="colonka">{transactions.vhodControlWorkTime}</td>
-                  <td className="colonka"   
-                    style={{
-                      backgroundColor:
-                        transactions.vhodControlTimeExceeded === 'Нет данных'
-                          ? 'lightyellow'
-                          : parseFloat(transactions.vhodControlTimeExceeded.replace(',', '.').replace('%', '')) >= 100
-                            ? 'lightgreen'
-                            : 'lightcoral',
-                    }}>{transactions.vhodControlTimeExceeded}</td>
+<td className="colonka"
+    style={{
+      backgroundColor:
+        transactions.vhodControlTimeExceeded === 'Нет данных'
+          ? 'lightyellow'
+          : transactions.vhodControlTimeExceeded === 'Контроль руководителя'  // Добавлено
+            ? 'rgba(235, 67, 53)'  // Добавлено
+            : getAdjustedPercentage(transactions.vhodControlTimeExceeded) >= 0
+              ? 'lightgreen'
+              : '#FFB6B6',
+    }}>
+  {formatAdjustedPercentage(transactions.vhodControlTimeExceeded)}
+</td>
                   <td className="colonka">0</td>
                   <td className="colonka">{transactions.planDateStart}</td>
                   <td className="colonka">
@@ -185,15 +199,19 @@ function Table() {
                   <td className="colonka">{header.podklyuchenieNorm}:00</td>
                   <td className="colonka">{transactions.electricNorm}:00 </td>
                   <td className="colonka">{transactions.electricTotalWorktime}</td>
-                  <td className="colonka" 
-                    style={{
-                      backgroundColor:
-                        transactions.electricTimeExceeded === 'Нет данных'
-                          ? 'lightyellow'
-                          : parseFloat(transactions.electricTimeExceeded.replace(',', '.').replace('%', '')) >= 100
-                            ? 'lightgreen'
-                            : 'lightcoral',
-                    }}>{transactions.electricTimeExceeded}</td>
+<td className="colonka"
+    style={{
+      backgroundColor:
+        transactions.electricTimeExceeded === 'Нет данных'
+          ? 'lightyellow'
+                    : transactions.electricTimeExceeded === 'Контроль руководителя'  // Добавлено
+            ? 'rgba(235, 67, 53)' 
+          : getAdjustedPercentage(transactions.electricTimeExceeded) >= 0
+            ? 'lightgreen'
+            : '#FFB6B6',
+    }}>
+  {formatAdjustedPercentage(transactions.electricTimeExceeded)}
+</td>
                   <td className="colonka">{transactions.electricProblemHours} </td>
                   <td className="colonka">{transactions.planDate1}</td>
                   <td className="colonka">{transactions.factDate1}</td>
@@ -215,14 +233,19 @@ function Table() {
                   <td className="colonka">{header.mechOperationNorm}:00</td>
                   <td className="colonka">{transactions.mechanicNorm}:00</td>
                   <td className="colonka">{transactions.mechanicTotalWorktime}</td>
-                  <td className="colonka"  style={{
-                      backgroundColor:
-                        transactions.mechanicTimeExceeded === 'Нет данных'
-                          ? 'lightyellow'
-                          : parseFloat(transactions.mechanicTimeExceeded.replace(',', '.').replace('%', '')) >= 100
-                            ? 'lightgreen'
-                            : 'lightcoral',
-                    }}>{transactions.mechanicTimeExceeded}</td>
+<td className="colonka"
+    style={{
+      backgroundColor:
+        transactions.mechanicTimeExceeded === 'Нет данных'
+          ? 'lightyellow'
+                    : transactions.mechanicTimeExceeded === 'Контроль руководителя'  // Добавлено
+            ? 'rgba(235, 67, 53)' 
+          : getAdjustedPercentage(transactions.mechanicTimeExceeded) >= 0
+            ? 'lightgreen'
+            : '#FFB6B6',
+    }}>
+  {formatAdjustedPercentage(transactions.mechanicTimeExceeded)}
+</td>
                   <td className="colonka">{transactions.mechanicProblemHours}</td>
                   <td className="colonka">{transactions.planDate2}</td>
                   <td className="colonka">{transactions.factDate2}</td>
@@ -244,14 +267,19 @@ function Table() {
                   <td className="colonka">{header.electronOperationNorm}:00</td>
                   <td className="colonka">{transactions.electronNorm}:00</td>
                   <td className="colonka">{transactions.electronTotalWorktime}</td>
-                  <td className="colonka"  style={{
-                      backgroundColor:
-                        transactions.electronTimeExceeded === 'Нет данных'
-                          ? 'lightyellow'
-                          : parseFloat(transactions.electronTimeExceeded.replace(',', '.').replace('%', '')) >= 100
-                            ? 'lightgreen'
-                            : 'lightcoral',
-                    }}>{transactions.electronTimeExceeded}</td>
+<td className="colonka"
+    style={{
+      backgroundColor:
+        transactions.electronTimeExceeded === 'Нет данных'
+          ? 'lightyellow'
+                    : transactions.electronTimeExceeded === 'Контроль руководителя'  // Добавлено
+            ? 'rgba(235, 67, 53)' 
+          : getAdjustedPercentage(transactions.electronTimeExceeded) >= 0
+            ? 'lightgreen'
+            : '#FFB6B6',
+    }}>
+  {formatAdjustedPercentage(transactions.electronTimeExceeded)}
+</td>
                   <td className="colonka">{transactions.electronProblemHours}</td>
                   <td className="colonka">{transactions.planDate3}</td>
                   <td className="colonka">{transactions.factDate3}</td>
@@ -274,14 +302,19 @@ function Table() {
                   <td className="colonka">{header.techOperationNorm}:00</td>
                   <td className="colonka">{transactions.techNorm}:00</td>
                   <td className="colonka">{transactions.techTotalWorktime}</td>
-                  <td className="colonka"   style={{
-                      backgroundColor:
-                        transactions.techTimeExceeded === 'Нет данных'
-                          ? 'lightyellow'
-                          : parseFloat(transactions.techTimeExceeded.replace(',', '.').replace('%', '')) >= 100
-                            ? 'lightgreen'
-                            : 'lightcoral',
-                    }}>{transactions.techTimeExceeded}</td>
+<td className="colonka"
+    style={{
+      backgroundColor:
+        transactions.techTimeExceeded === 'Нет данных'
+          ? 'lightyellow'
+                    : transactions.techTimeExceeded === 'Контроль руководителя'  // Добавлено
+            ? 'rgba(235, 67, 53)' 
+          : getAdjustedPercentage(transactions.techTimeExceeded) >= 0
+            ? 'lightgreen'
+            : '#FFB6B6',
+    }}>
+  {formatAdjustedPercentage(transactions.techTimeExceeded)}
+</td>
                   <td className="colonka">{transactions.techProblemHours}</td>
                   <td className="colonka">{transactions.planDate4}</td>
                   <td className="colonka">{transactions.factDate4}</td>
@@ -303,14 +336,19 @@ function Table() {
                   <td className="colonka">{header.vihodNorm}:00</td>
                   <td className="colonka">0:00</td>
                   <td className="colonka">{transactions.vihodControlWorkTime}</td>
-                  <td className="colonka"  style={{
-                      backgroundColor:
-                        transactions.vihodControlTimeExceeded === 'Нет данных'
-                          ? 'lightyellow'
-                          : parseFloat(transactions.vihodControlTimeExceeded.replace(',', '.').replace('%', '')) >= 100
-                            ? 'lightgreen'
-                            : 'lightcoral',
-                    }}>{transactions.vihodControlTimeExceeded}</td>
+<td className="colonka"
+    style={{
+      backgroundColor:
+        transactions.vihodControlTimeExceeded === 'Нет данных'
+          ? 'lightyellow'
+                    : transactions.vihodControlTimeExceeded === 'Контроль руководителя'  // Добавлено
+            ? 'rgba(235, 67, 53)' 
+          : getAdjustedPercentage(transactions.vihodControlTimeExceeded) >= 0
+            ? 'lightgreen'
+            : '#FFB6B6',
+    }}>
+  {formatAdjustedPercentage(transactions.vihodControlTimeExceeded)}
+</td>
                   <td className="colonka">0</td>
                   <td className="colonka">{transactions.planDate5}</td>
                   <td className="colonka">{transactions.factDate5}</td>
@@ -332,14 +370,19 @@ function Table() {
                   <td className="colonka">{header.transportNorm}:00</td>
                   <td className="colonka">0:00</td>
                   <td className="colonka">{transactions.transportPolozhenieWorkTime}</td>
-                  <td className="colonka"  style={{
-                      backgroundColor:
-                        transactions.transportTimeExceeded === 'Нет данных'
-                          ? 'lightyellow'
-                          : parseFloat(transactions.transportTimeExceeded.replace(',', '.').replace('%', '')) >= 100
-                            ? 'lightgreen'
-                            : 'lightcoral',
-                    }}>{transactions.transportTimeExceeded}</td>
+<td className="colonka"
+    style={{
+      backgroundColor:
+        transactions.transportTimeExceeded === 'Нет данных'
+          ? 'lightyellow'
+                    : transactions.transportTimeExceeded === 'Контроль руководителя'  // Добавлено
+            ? 'rgba(235, 67, 53)' 
+          : getAdjustedPercentage(transactions.transportTimeExceeded) >= 0
+            ? 'lightgreen'
+            : '#FFB6B6',
+    }}>
+  {formatAdjustedPercentage(transactions.transportTimeExceeded)}
+</td>
                   <td className="colonka">{transactions.complexProblemHours}</td>
                   <td className="colonka">{transactions.planDate6}</td>
                   <td className="colonka">{transactions.factDate6}</td>
@@ -359,15 +402,20 @@ function Table() {
                 <tr className="stroka">
                   <td className="colonka"></td>
                   <td className="colonka">Отклонение от плана (План ППП/Факт ППП)</td>
-                  <td className="colonka" style={{
-                      backgroundColor:
-                        parseFloat(transactions.percentagePlanPpp.replace(',', '.').replace('%', '')) >= 100
-                          ? 'lightgreen'
-                          : 'lightcoral',
-                    }}>{transactions.percentagePlanPpp}</td>
+<td className="colonka"
+    style={{
+      backgroundColor:
+        transactions.percentagePlanPpp === 'Нет данных'
+          ? 'lightyellow'
+          : getAdjustedPercentage(transactions.percentagePlanPpp) >= 0
+            ? 'lightgreen'
+            : '#FFB6B6',
+    }}>
+  {formatAdjustedPercentage(transactions.percentagePlanPpp)}
+</td>
                   <td className="colonka"></td>
-                  <td className="colonka"></td>
-                  <td className="colonka">Затрачено часов</td>
+                  <td className="colonka">{header.totalHeaderNorms}</td>
+                  <td className="colonka">{transactions.totalProfessionNorms}</td>
                   <td className="colonka">{transactions.totalOperationsWorkTime}</td>
                   <td className="colonka"></td>
                   <td className="colonka">{transactions.totalProblemHours}</td>

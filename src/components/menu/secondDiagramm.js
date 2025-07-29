@@ -1,193 +1,141 @@
 import React from "react";
 import "../../styles/secondDiagramm.css";
 import { Pie } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from "chart.js";
+import { BarChart, Bar, XAxis, ResponsiveContainer, Cell} from "recharts";
+import { Tooltip as RechartsTooltip } from 'recharts';
+
+ChartJS.register(
   ArcElement,
   Tooltip,
   Legend,
-} from "chart.js";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
+  CategoryScale,
+  LinearScale,
+  BarElement
+);
 
 function SecondDiagramm({ header }) {
   const isLoading = !header;
-
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div style={{
+        position: 'absolute',
+        right: '-120px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        background: 'white',
+        padding: '10px',
+        border: '1px solid #D4EFDF',
+        borderRadius: '6px',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+        minWidth: '100px',
+        transition: 'opacity 0.3s ease',
+        zIndex: 100
+      }}>
+        <div style={{ 
+          position: 'absolute',
+          left: '-6px',
+          top: '50%',
+          width: '0',
+          height: '0',
+          borderTop: '6px solid transparent',
+          borderBottom: '6px solid transparent',
+          borderRight: '6px solid #D4EFDF',
+          transform: 'translateY(-50%)'
+        }}></div>
+        <p style={{ 
+          margin: 0, 
+          color: '#5A5A5A',
+          fontWeight: 'bold',
+          fontSize: '12px'
+        }}>{payload[0].payload.name}</p>
+        <p style={{ 
+          margin: '4px 0 0 0',
+          color: '#7F7F7F',
+          fontSize: '12px'
+        }}>{`${payload[0].value} ч.`}</p>
+      </div>
+    );
+  }
+  return null;
+};
+  // 1. Первая круговая диаграмма (100% как у вас)
   const chartData = {
-    labels: ["Просрочено", "Выполнение в срок"],
-    datasets: [
-      {
-        data: [
-          isLoading ? 0 : header.noOperationsCount,
-          isLoading ? 0 : header.yesOperationsCount,
-        ],
-        backgroundColor: ["#F7464A", "#46BFBD"],
-        borderColor: "#ffffff",
-        borderWidth: 2,
-      },
-    ],
+    labels: ["Операции просрочены", "Операции, выполненные в срок"],
+    datasets: [{
+      data: [header?.noOperationsCount || 0, header?.yesOperationsCount || 0],
+      backgroundColor: ["#FFB6B6", "#D4EFDF"],
+      borderColor: "#ffffff",
+      borderWidth: 2
+    }]
   };
 
   const options = {
     responsive: true,
     aspectRatio: 2,
     plugins: {
-      legend: {
-        display: true,
-        position: "bottom",
-      },
+      legend: { display: true, position: "bottom" },
       tooltip: {
-        enabled: true,
         callbacks: {
-          label: function (context) {
-            let label = context.label || "";
-            if (label) {
-              label += ": ";
-            }
-            if (context.parsed !== null) {
-              const total = context.chart.data.datasets[0].data.reduce(
-                (a, b) => a + b,
-                0
-              );
-              const percentage = ((context.raw / total) * 100).toFixed(1);
-              label += `${context.parsed} (${percentage}%)`;
-            }
-            return label;
-          },
-        },
-      },
-    },
+          label: (ctx) => {
+            const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+            const percentage = ((ctx.raw / total) * 100).toFixed(1);
+            return `${ctx.label}: ${ctx.raw} (${percentage}%)`;
+          }
+        }
+      }
+    }
   };
 
-  // Данные для второй диаграммы
+  // 2. Вторая круговая диаграмма (100% как у вас)
   const chartData2 = {
     labels: [
-      "Входной контроль",
-      "Подключение",
-      "Проверка механиком",
-      "Проверка электронщиком",
-      "Проверка механиком",
-      "Выходной контроль",
-      "Транспортное положение",
+      "Входной контроль", "Подключение", "Проверка механиком",
+      "Проверка электронщиком", "Проверка механиком",
+      "Выходной контроль", "Транспортное положение"
     ],
-    datasets: [
-      {
-        data: [
-          isLoading ? 0 : header.vhodControlExceededCount,
-          isLoading ? 0 : header.electricExceededCount,
-          isLoading ? 0 : header.mechanicExceededCount,
-          isLoading ? 0 : header.electronExceededCount,
-          isLoading ? 0 : header.techExceededCount,
-          isLoading ? 0 : header.vihodControlExceededCount,
-          isLoading ? 0 : header.transportExceededCount,
-        ],
-        backgroundColor: [
-          "#F9766E",
-          "#FF60CC",
-          "#C87CFF",
-          "#00A9FF",
-          "#01BFC6",
-          "#01BE67",
-          "#CD9600",
-        ],
-        borderColor: "#ffffff",
-        borderWidth: 2,
-      },
-    ],
+    datasets: [{
+      data: [
+        header?.vhodControlExceededCount || 0,
+        header?.electricExceededCount || 0,
+        header?.mechanicExceededCount || 0,
+        header?.electronExceededCount || 0,
+        header?.techExceededCount || 0,
+        header?.vihodControlExceededCount || 0,
+        header?.transportExceededCount || 0
+      ],
+      backgroundColor: ["#D4E6EF", "#FFD3D3", "#EFF7D4", "#FFD8B6", "#E8D4EF", "#D4EFE6", " #FFC4B8"],
+      borderColor: "#ffffff",
+      borderWidth: 2
+    }]
   };
 
   const options2 = {
     responsive: true,
-    aspectRatio: 3, // <--- Важно: отключаем сохранение пропорций
+    aspectRatio: 3,
     plugins: {
-      legend: {
-        display: false,
-        position: "bottom", //  Пока оставим снизу
-        labels: {
-          font: {
-            size: 7,
-          },
-        },
-      },
+      legend: { display: false },
       tooltip: {
-        enabled: true,
         callbacks: {
-          label: function (context) {
-            let label = context.label || "";
-            if (label) {
-              label += ": ";
-            }
-            if (context.parsed !== null) {
-              const total = context.chart.data.datasets[0].data.reduce(
-                (a, b) => a + b,
-                0
-              );
-              const percentage = ((context.raw / total) * 100).toFixed(1);
-              label += `${context.parsed} (${percentage}%)`;
-            }
-            return label;
-          },
-        },
-      },
-    },
-  };
-  const chartData4 = {
-    labels: ["Фонд рабочего времени", "Выработка"],
-    datasets: [
-      {
-        data: [
-          isLoading ? 0 : header.totalHoursMounth,
-          isLoading ? 0 : header.totalWorkTimeHoursFromEmployees,
-        ],
-        backgroundColor: ["#63ff7dff", "#63e0ffff"], //  Другие цвета
-        borderColor: "#ffffff",
-        borderWidth: 2,
-      },
-    ],
-  };
-
-  const options4 = {
-    responsive: true,
-    aspectRatio: 4,
-    plugins: {
-      legend: {
-        display: true,
-        position: 'right', 
-        labels: {
-          font: {
-                    size: 10, // Уменьшаем размер шрифта
-                },
-                boxWidth: 12,   // Ширина цветного квадратика
-            }
-      },
-      tooltip: {
-        enabled: true,
-        callbacks: {
-          label: function (context) {
-            let label = context.label || "";
-            if (label) {
-              label += ": ";
-            }
-            if (context.parsed !== null) {
-              const total = context.chart.data.datasets[0].data.reduce(
-                (a, b) => a + b,
-                0
-              );
-              const percentage = ((context.raw / total) * 100).toFixed(1);
-              label += `${context.parsed} (${percentage}%)`;
-            }
-            return label;
-          },
-        },
-      },
-    },
-     layout: {
-        padding: {
-            right: 20,  // Увеличиваем отступ справа для легенды
+          label: (ctx) => {
+            const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+            const percentage = ((ctx.raw / total) * 100).toFixed(1);
+            return `${ctx.label}: ${ctx.raw} (${percentage}%)`;
+          }
         }
+      }
     }
   };
- const renderCustomLegend = (data, isLoading) => {
+
+  // 3. Данные для гистограммы (ваши оригинальные данные)
+  const barData = [
+    { name: "Фонд рабочего времени", value: header?.totalHoursMounth || 0 },
+    { name: "Выработка", value: header?.totalWorkTimeHoursFromEmployees || 0 }
+  ];
+
+  // Кастомная легенда (ваш оригинальный код)
+  const renderCustomLegend = (data, isLoading) => {
     if (isLoading) return null;
 
     return (
@@ -206,44 +154,133 @@ function SecondDiagramm({ header }) {
       </div>
     );
   };
+
   return (
     <div className="second-container">
       <div className="second-header">Производство</div>
       <div className="second-grid">
+        
+        {/* 1. Первая диаграмма (ваш оригинальный код) */}
         <div className="second-cell cell-1">
           ВЫПОЛНЕНИЕ В СРОК
           <div className="chart-wrapper">
             {isLoading ? (
-              <div className="loading-placeholder">Загрузка диаграммы...</div>
+              <div className="loading-placeholder">Загрузка...</div>
             ) : (
               <Pie data={chartData} options={options} />
             )}
           </div>
         </div>
 
-        {/* Остальные блоки, если нужны, пока остаются пустыми */}
+        {/* 2. Вторая диаграмма (ваш оригинальный код) */}
         <div className="second-cell cell-2">
           ЭТАПЫ ПРОИЗВОДСТВА
           <div className="chart-wrapper">
-          {isLoading ? (
-            <div className="loading-placeholder">Загрузка диаграммы...</div>
-          ) : (
-            <Pie data={chartData2} options={options2} />
-          )}</div>
-          <div className="chart-wrapper">
-           {renderCustomLegend(chartData2, isLoading)}</div>
-        </div>
-        <div className="second-cell cell-3">ЗАГРУЗКА ПЕРСОНАЛА<br/><br/>(ВЕРСИЯ 2.0)</div>
-         <div className="second-cell cell-4">
-          ВЫРАБОТКА ПЕРСОНАЛА
-          <div className="chart-wrapper">
             {isLoading ? (
-              <div className="loading-placeholder">Загрузка диаграммы...</div>
+              <div className="loading-placeholder">Загрузка...</div>
             ) : (
-              <Pie data={chartData4} options={options4} />
+              <Pie data={chartData2} options={options2} />
             )}
           </div>
+          <div className="chart-wrapper">
+            {renderCustomLegend(chartData2, isLoading)}
           </div>
+        </div>
+
+        {/* 3. Пустой блок (ваш оригинальный код) */}
+        <div className="second-cell cell-3">
+          ЗАГРУЗКА ПЕРСОНАЛА<br/><br/>(ВЕРСИЯ 2.0)
+        </div>
+
+        {/* 4. Гистограмма - ЕДИНСТВЕННОЕ ИЗМЕНЕНИЕ */}
+       {/* 4. Гистограмма - Выработка персонала (обновленная версия) */}
+<div className="second-cell cell-4">
+  ВЫРАБОТКА ПЕРСОНАЛА
+  <div className="chart-wrapper" style={{ 
+    height: '80px', 
+    minWidth: '250px',
+    display: 'flex',
+    alignItems: 'center',
+     position: 'relative',
+    gap: '10px'
+  }}>
+    {isLoading ? (
+      <div className="loading-placeholder">Загрузка...</div>
+    ) : (
+      <>
+        {/* Основной график с тултипом */}
+        <ResponsiveContainer width="60%" height="100%">
+          <BarChart
+            data={[
+              { name: "Фонд рабочего времени", value: header?.totalHoursMounth || 0 },
+              { name: "Выработка", value: header?.totalWorkTimeHoursFromEmployees || 0 }
+            ]}
+            margin={{ top: 5, right: 0, left: 0, bottom: 0 }}
+          >
+            <XAxis 
+              dataKey="name" 
+              tick={false}
+              axisLine={false}
+            />
+            {/* Компонент Tooltip */}
+            <RechartsTooltip
+              content={<CustomTooltip />} // Кастомный стиль тултипа
+              cursor={{ fill: 'rgba(0,0,0,0.05)' }} // Подсветка при наведении
+            />
+            <Bar 
+              dataKey="value" 
+              barSize={20}
+            >
+              <Cell fill="#D4EFDF" />
+              <Cell fill="#D4E6EF" />
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+
+        {/* Легенда (оставляем ваш текущий вариант) */}
+        <div className="custom-legend" style={{
+          paddingLeft: '10px',
+          borderLeft: '1px solid #eee',
+          fontSize: '12px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '8px'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            minWidth: '100%'
+          }}>
+            <div style={{
+              flexShrink: 0,
+              width: '14px',
+              height: '14px',
+              backgroundColor: '#D4EFDF',
+              marginRight: '8px',
+              borderRadius: '2px'
+            }} />
+            <span style={{ whiteSpace: 'nowrap' }}>Фонд рабочего времени</span>
+          </div>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            minWidth: '100%'
+          }}>
+            <div style={{
+              flexShrink: 0,
+              width: '14px',
+              height: '14px',
+              backgroundColor: '#D4E6EF',
+              marginRight: '8px',
+              borderRadius: '2px'
+            }} />
+            <span style={{ whiteSpace: 'nowrap' }}>Выработка</span>
+          </div>
+        </div>
+      </>
+    )}
+  </div>
+</div>
       </div>
     </div>
   );

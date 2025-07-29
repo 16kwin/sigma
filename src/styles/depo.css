@@ -56,16 +56,6 @@
   animation-play-state: paused;
 }
 
-/* Анимация прокрутки */
-@keyframes scroll-up {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-50%);
-  }
-}
-
 /* Строки таблицы */
 .depo-row {
   display: flex;
@@ -88,11 +78,11 @@
 
 /* Цветовая индикация */
 .success {
-  background-color: #a3e4a3;
+  background-color: #D4EFDF;
 }
 
 .error {
-  background-color: #ffa6a6;
+  background-color: #FFB6B6;
 }
 
 .yellow {
@@ -110,3 +100,21 @@
   text-align: center;
   color: #666;
 }
+.depo-divider {
+  height: 2px;
+  background-color: #ff0000;
+  width: 100%;
+  margin: 3px 0;
+}
+
+/* Анимация с учётом разделителей */
+@keyframes scroll-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(calc(-50%)); /* Учитываем высоту разделителей */
+  }
+}
+
+/* Опционально: стили для текста в разделителе */

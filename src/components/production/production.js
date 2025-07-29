@@ -10,7 +10,7 @@ const Production = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [selectedYear, setSelectedYear] = useState(2023);
+  const [selectedYear, setSelectedYear] = useState(2025);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
    const [selectedPercentage, setSelectedPercentage] = useState(80);
 

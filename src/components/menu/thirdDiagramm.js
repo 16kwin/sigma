@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "../../styles/thirdDiagramm.css";
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { BarChart, Bar, Cell, XAxis, Tooltip } from 'recharts';
 
 const getSeasonColor = (month) => {
   const monthNumber = parseInt(month.substring(5, 7), 10);
@@ -110,9 +110,22 @@ function ThirdDiagramm({ months }) {
       <div className="volume-and-buttons">
         <div className="volume-text">ОБЪЕМ ТРАНЗАКЦИЙ</div>
         <div className="diagram-buttons">
-          <button onClick={() => setDiagramType('month')}>Месяц</button>
-          <button onClick={() => setDiagramType('year')}>Год</button>
-        </div>
+  <div 
+    className={`toggle-option ${diagramType === 'month' ? 'active' : ''}`}
+    onClick={() => setDiagramType('month')}
+  >
+    <span className="toggle-circle"></span>
+    <span>Месяц</span>
+  </div>
+  
+  <div 
+    className={`toggle-option ${diagramType === 'year' ? 'active' : ''}`}
+    onClick={() => setDiagramType('year')}
+  >
+    <span className="toggle-circle"></span>
+    <span>Год</span>
+  </div>
+</div>
       </div>
 
       <div className="third-main-block">

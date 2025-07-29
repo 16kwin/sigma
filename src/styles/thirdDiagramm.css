@@ -43,25 +43,40 @@
 /* Стили для контейнера кнопок */
 .diagram-buttons {
   display: flex;
-  justify-content: center; /* Выравниваем кнопки по центру горизонтально */
+  gap: 20px; /* Расстояние между вариантами */
+  align-items: center;
 }
 
-/* Стили для кнопок */
-.diagram-buttons button {
-  background-color: #5DADE2;
-  color: white;
-  font-size: 1em;
-  padding: 10px 20px;
-  margin: 0 10px; /* Отступы слева и справа */
-  border: none;
-  border-radius: 5px;
+.toggle-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 1em;
+  color: #555;
+  transition: all 0.3s ease;
 }
 
-/* Стили для кнопок при наведении */
-.diagram-buttons button:hover {
-  background-color: #2E86C1;
+.toggle-option:hover {
+  color: #000;
+}
+
+.toggle-circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #42C2F4;
+  transition: all 0.3s ease;
+}
+
+.toggle-option.active .toggle-circle {
+  background-color: #42C2F4; /* Заливка для активного */
+  border-color: #42C2F4;
+}
+
+.toggle-option.active {
+  color: #000;
+  font-weight: 500;
 }
 
 /* Основной блок содержимого */

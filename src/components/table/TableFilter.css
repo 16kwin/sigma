@@ -34,3 +34,51 @@
   width: 50%; 
   /* Занимает половину ширины контейнера */
 }
+.stats-table {
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.stats-table th {
+  padding: 8px 12px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.stats-header {
+  font-weight: bold;
+  border: 1px solid #ddd;
+  white-space: nowrap;
+}
+
+.stats-subheader {
+  border: 1px solid #ddd;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.stats-value {
+  border: 1px solid #ddd;
+  font-weight: bold;
+  padding: 8px 12px;
+}
+
+.stats-value.green {
+  background-color: #D4EFDF;
+}
+
+.stats-value.red {
+  background-color: #FFB6B6;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+  .stats-table {
+    font-size: 12px;
+  }
+  
+  .stats-table th {
+    padding: 6px 8px;
+  }
+}

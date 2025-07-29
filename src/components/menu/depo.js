@@ -4,9 +4,11 @@ import "../../styles/depo.css";
 function Depo({ data }) {
   const [isPaused, setIsPaused] = useState(false);
 
-  const doubledTransactions = useMemo(() => {
+  const transactionsWithDividers = useMemo(() => {
     if (!data?.transactions) return [];
-    return [...data.transactions, ...data.transactions];
+    const original = data.transactions;
+    // Добавляем разделитель после каждого полного набора данных
+    return [...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }];
   }, [data]);
 
   const toggleAnimation = () => {
@@ -38,17 +40,21 @@ function Depo({ data }) {
           <div 
             className={`depo-table-body ${isPaused ? 'paused' : ''}`}
           >
-            {doubledTransactions.map((transaction, index) => (
-              <div key={`${transaction.transaction}-${index}`} className="depo-row">
-                <div className="depo-cell">{transaction.transaction}</div>
-                <div className={`depo-cell ${getStatusClass(transaction.vhodControlTimeExceeded)}`}></div>
-                <div className={`depo-cell ${getStatusClass(transaction.electricTimeExceeded)}`}></div>
-                <div className={`depo-cell ${getStatusClass(transaction.mechanicTimeExceeded)}`}></div>
-                <div className={`depo-cell ${getStatusClass(transaction.electronTimeExceeded)}`}></div>
-                <div className={`depo-cell ${getStatusClass(transaction.techTimeExceeded)}`}></div>
-                <div className={`depo-cell ${getStatusClass(transaction.vihodControlTimeExceeded)}`}></div>
-                <div className={`depo-cell ${getStatusClass(transaction.transportTimeExceeded)}`}></div>
-              </div>
+            {transactionsWithDividers.map((item, index) => (
+              item.type === 'divider' ? (
+                <div key={`divider-${index}`} className="depo-divider"></div>
+              ) : (
+                <div key={`${item.transaction}-${index}`} className="depo-row">
+                  <div className="depo-cell">{item.transaction}</div>
+                  <div className={`depo-cell ${getStatusClass(item.vhodControlTimeExceeded)}`}></div>
+                  <div className={`depo-cell ${getStatusClass(item.electricTimeExceeded)}`}></div>
+                  <div className={`depo-cell ${getStatusClass(item.mechanicTimeExceeded)}`}></div>
+                  <div className={`depo-cell ${getStatusClass(item.electronTimeExceeded)}`}></div>
+                  <div className={`depo-cell ${getStatusClass(item.techTimeExceeded)}`}></div>
+                  <div className={`depo-cell ${getStatusClass(item.vihodControlTimeExceeded)}`}></div>
+                  <div className={`depo-cell ${getStatusClass(item.transportTimeExceeded)}`}></div>
+                </div>
+              )
             ))}
           </div>
         </div>
