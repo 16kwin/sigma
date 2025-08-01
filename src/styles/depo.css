@@ -14,7 +14,7 @@
   background-color: #42c2f4;
   color: white;
   padding: 14px 20px;
-  text-align: left;
+  text-align: center;
   font-weight: 600;
   font-size: 1.2em;
 }
@@ -116,5 +116,26 @@
     transform: translateY(calc(-50%)); /* Учитываем высоту разделителей */
   }
 }
+/* Легенда */
+.depo-legend {
+  display: flex;
+  gap: 20px;
+  justify-content: center; 
+  padding: 12px 20px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+}
 
+.legend-item2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-color2 {
+  width: 40px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
 /* Опционально: стили для текста в разделителе */

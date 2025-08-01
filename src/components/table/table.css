@@ -1,13 +1,19 @@
 .table-container {
   width: 100%;
-  padding: 20px; /* паддинг со всех сторон */
-  padding-bottom: 40px; /* увеличенный паддинг снизу */
-  box-sizing: border-box; /* учитываем паддинг в общей ширине */
-  overflow-y: auto;
-  max-height: calc(100vh - 40px); /* учитываем паддинг в высоте */
-  position: relative; /* для корректного позиционирования */
+  padding: 20px;
+  padding-bottom: 40px;
+  box-sizing: border-box;
+  overflow-y: auto; /* Вертикальная прокрутка для всего контейнера */
+  max-height: calc(100vh - 40px);
+  position: relative;
 }
 
+/* Новая обертка для горизонтальной прокрутки таблицы */
+.table-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto; /* Горизонтальная прокрутка только для таблицы */
+  margin-top: 20px; /* Отступ от фильтра */
+}
 
 .table-format {
   width: auto; /* Изменено с 100% на auto, чтобы таблица могла быть шире контейнера */

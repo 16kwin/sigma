@@ -89,6 +89,7 @@ const formatAdjustedPercentage = (value) => {
       <TableFilter transactions={transactions} onFilter={setFilteredTransactions} header={header} />
       <br/>
       <br/>{/* Оборачиваем таблицу в div */}
+      <div className="table-scroll-wrapper">
         <table className="table-format">
           <thead className="head"> 
             <tr className="strokahead">
@@ -441,6 +442,7 @@ const formatAdjustedPercentage = (value) => {
             </React.Fragment>
           ))}
         </table>
+    </div>
     </div>
   );
 }

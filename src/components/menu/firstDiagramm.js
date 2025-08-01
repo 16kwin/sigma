@@ -30,7 +30,7 @@ function FirstDiagramm({ header }) {
     <div className="firstdiagramm">
       <style>{tooltipStyles}</style> {/* Инжектим кастомные стили */}
 
-      <div className="diagram-header">Текущие показатели</div>
+      <div className="diagram-header">Текущие показатели (за транзакции в работе)</div>
       <div className="blocks-wrapper">
         {/* Блок 1 */}
         <div 
@@ -126,7 +126,7 @@ function FirstDiagramm({ header }) {
           id="block4-tooltip" 
           className="custom-tooltip"
           effect="solid"
-          content="Сумма времен межоперационных ожиданий" 
+          content="Сумма времени межоперационных ожиданий" 
         />
 
         {/* Блок 5 */}
@@ -195,7 +195,7 @@ function FirstDiagramm({ header }) {
         id="block3-tooltip" 
         className="custom-tooltip"
         effect="solid"
-        content="Сумма фактического времени за транзакции+сумма времен межоперационных ожиданий+суммарное время устранений замечаний" 
+        content="Сумма фактического времени за транзакции+сумма времени межоперационных ожиданий+суммарное время устранений замечаний" 
       />
     </div>
   );

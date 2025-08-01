@@ -64,12 +64,6 @@ const TableFilter = ({ transactions, onFilter, header }) => {
     <th className="stats-header">Свободно</th> 
     <th className="stats-subheader">Механик <br/>электрон. <br/>технолог <br/>электрик <br/>комплект.</th>
     <th className="stats-value">{header.mechanicCount}<br/>{header.eletronCount}<br/>{header.techCount}<br/>{header.elecCount}<br/>{header.conplectCount}</th> 
-    <th className="stats-header">В работе станков</th> 
-    <th className="stats-value">{header.inProgressTransactionsCount}</th> 
-    <th className="stats-header">Станки в срок</th> 
-    <th className="stats-value green">{header.overfulfilledTransactionsCount}</th> 
-    <th className="stats-header">Станки не в срок</th> 
-    <th className="stats-value red">{header.underfulfilledTransactionsCount}</th> 
   </tr>
 </table>
 

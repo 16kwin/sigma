@@ -73,9 +73,9 @@ const CustomTooltip = ({ active, payload }) => {
 
   const options = {
     responsive: true,
-    aspectRatio: 2,
+    aspectRatio: 2.3,
     plugins: {
-      legend: { display: true, position: "bottom" },
+      legend: { display: true, position: "bottom", align: "start"},
       tooltip: {
         callbacks: {
           label: (ctx) => {
@@ -113,7 +113,7 @@ const CustomTooltip = ({ active, payload }) => {
 
   const options2 = {
     responsive: true,
-    aspectRatio: 3,
+    aspectRatio: 3.5,
     plugins: {
       legend: { display: false },
       tooltip: {
@@ -162,7 +162,7 @@ const CustomTooltip = ({ active, payload }) => {
         
         {/* 1. Первая диаграмма (ваш оригинальный код) */}
         <div className="second-cell cell-1">
-          ВЫПОЛНЕНИЕ В СРОК
+          ВЫПОЛНЕНИЕ В СРОК ОПЕРАЦИЙ ПО ТРАНЗАКЦИЯМ В РАБОТЕ
           <div className="chart-wrapper">
             {isLoading ? (
               <div className="loading-placeholder">Загрузка...</div>
@@ -174,7 +174,7 @@ const CustomTooltip = ({ active, payload }) => {
 
         {/* 2. Вторая диаграмма (ваш оригинальный код) */}
         <div className="second-cell cell-2">
-          ЭТАПЫ ПРОИЗВОДСТВА
+          ЭТАПЫ ПРОИЗВОДСТВА ПО ТРАНЗАКЦИЯМ В РАБОТЕ
           <div className="chart-wrapper">
             {isLoading ? (
               <div className="loading-placeholder">Загрузка...</div>
@@ -189,15 +189,15 @@ const CustomTooltip = ({ active, payload }) => {
 
         {/* 3. Пустой блок (ваш оригинальный код) */}
         <div className="second-cell cell-3">
-          ЗАГРУЗКА ПЕРСОНАЛА<br/><br/>(ВЕРСИЯ 2.0)
+          ЗАГРУЗКА ПЕРСОНАЛА ОНЛАЙН<br/><br/>
         </div>
 
         {/* 4. Гистограмма - ЕДИНСТВЕННОЕ ИЗМЕНЕНИЕ */}
        {/* 4. Гистограмма - Выработка персонала (обновленная версия) */}
 <div className="second-cell cell-4">
-  ВЫРАБОТКА ПЕРСОНАЛА
+  ВЫРАБОТКА ПЕРСОНАЛА ЗА МЕСЯЦ
   <div className="chart-wrapper" style={{ 
-    height: '80px', 
+    height: '85px', 
     minWidth: '250px',
     display: 'flex',
     alignItems: 'center',

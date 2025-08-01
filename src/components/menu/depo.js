@@ -59,6 +59,16 @@ function Depo({ data }) {
           </div>
         </div>
       </div>
+      <div className="depo-legend">
+  <div className="legend-item2">
+    <div className="legend-color2 success"></div>
+    <span>Выполнено в срок</span>
+  </div>
+  <div className="legend-item2">
+    <div className="legend-color2 error"></div>
+    <span>Просрочено</span>
+  </div>
+</div>
     </div>
   );
 }

@@ -15,15 +15,14 @@
 
 /* Шапка компонента */
 .second-header {
-  background-color: #42C2F4;
+ background-color:rgba(66, 194, 244);
   color: white;
-  padding: 12px 20px;
+  padding: 12px 20px; /* Больше отступ слева-справа */
   text-align: left;
-  font-weight: 600;
+  padding: 12px;
+  font-weight: bold;
   border-radius: 6px 6px 0 0;
-  margin: -10px -10px 12px -10px;
-  font-size: 1.1em;
-  letter-spacing: 0.5px;
+  margin: -10px -10px 10px -10px; 
 }
 
 /* Сетка блоков */
