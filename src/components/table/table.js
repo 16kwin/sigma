@@ -51,6 +51,8 @@ function Table() {
     planEnd: "Планируемая дата завершения по БОС - Нормативы на операцию и опции (с учетом рабочих дней и суточной нормы)",
     forecastEnd: "Прогнозируемая дата завершения - Нормативы на операцию и опции (с учетом рабочих дней и суточной нормы)",
     factEnd: "Фактическая дата завершения - Нормативы на операцию и опции (с учетом рабочих дней и суточной нормы)",
+     SummTime1: "|((План на ППП/Сумма фактического времени)*100)-100|",
+       SummTime2: "Все фактического временя + все время по устранению замечаний по потерям + все время межоперационного ожидания",
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -442,7 +444,7 @@ const formatAdjustedPercentage = (value) => {
                 <tr className="stroka">
                   <td className="colonka"></td>
                   <td className="colonka">Отклонение от плана (План ППП/Факт ППП)</td>
-<td className="colonka"
+<td className="colonka" data-tooltip-id="SummTime1"
     style={{
       backgroundColor:
         transactions.percentagePlanPpp === 'Нет данных'
@@ -453,7 +455,7 @@ const formatAdjustedPercentage = (value) => {
     }}>
   {formatAdjustedPercentage(transactions.percentagePlanPpp)}
 </td>
-                  <td className="colonka"></td>
+                  <td className="colonka">Сумма:</td>
                   <td className="colonka">{header.totalHeaderNorms}</td>
                   <td className="colonka">{transactions.totalProfessionNorms}</td>
                   <td className="colonka">{transactions.totalOperationsWorkTime}</td>
@@ -470,13 +472,15 @@ const formatAdjustedPercentage = (value) => {
                   <td className="colonka">Межоперационное ожидание</td>
                   <td className="colonka">{transactions.totalTimeBetweenOperations}</td>
                   <td className="colonka"></td>
-                  <td className="colonka">Итоговое время цикла</td>
+                  <td className="colonka" data-tooltip-id="SummTime2">Итоговое время цикла</td>
                   <td className="colonka">{transactions.totalTimeAll}<br/>{calculateDaysFromTime(transactions.totalTimeAll)}</td>
                   <td className="colonka"></td>
                   <td className="colonka"></td>
                   <td className="colonka"></td>
                 </tr>
-              </tbody>      
+              </tbody>  
+              <Tooltip id="SummTime1" place="bottom" content={TOOLTIPS.SummTime1} />
+              <Tooltip id="SummTime2" place="bottom" content={TOOLTIPS.SummTime2} />    
               <br/>
             </React.Fragment>
           ))}
