@@ -11,6 +11,7 @@
 /* Новая обертка для горизонтальной прокрутки таблицы */
 .table-scroll-wrapper {
   width: 100%;
+  max-width: 4500px;
   overflow-x: auto; /* Горизонтальная прокрутка только для таблицы */
   margin-top: 20px; /* Отступ от фильтра */
 }
@@ -22,7 +23,6 @@
   border-collapse: separate;
   table-layout: auto; /* Автоматическое определение ширины колонок */
 }
-
 /* Остальные стили остаются без изменений */
 .colonka,
 .stroka,
@@ -30,6 +30,7 @@
 .strokahead {
   border: 1px solid #ccc;
   min-height: 30px;
+   min-width: 100px;
 }
 
 .head {
@@ -39,7 +40,20 @@
   border: 1px solid #ccc;
   background-color: white;
 }
-
+.colonka {
+  border: 1px solid #ccc;
+  min-height: 30px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  white-space: normal;
+  
+  /* Новое правило для дат */
+  &:has([data-date-format="yyyy-mm-dd"]) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
 .head::before {
   content: "";
   position: absolute;

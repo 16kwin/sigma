@@ -1,6 +1,5 @@
 // src/components/ProductionFilter.js
 import React, { useState, useEffect } from 'react';
-// Импортируем CSS файл
 import './productionFilter.css';
 
 const ProductionFilter = ({ onFilterChange }) => {
@@ -19,59 +18,78 @@ const ProductionFilter = ({ onFilterChange }) => {
     { value: 12, label: 'Декабрь' },
   ];
 
-  const [selectedYear, setSelectedYear] = useState(2025);
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth()+1);
-  // Новый стейт для выбора процента, по умолчанию 80
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth() + 1;
+
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   const [selectedPercentage, setSelectedPercentage] = useState(80);
+  const [showOnlyActive, setShowOnlyActive] = useState(false);
 
   const generateYears = () => {
     const years = [];
     const startYear = 2023;
-    const endYear = 2025;
+    const endYear = currentYear;
     for (let year = startYear; year <= endYear; year++) {
       years.push(year);
     }
     return years;
   };
 
-  // Функция для генерации списка процентов от 50 до 100
   const generatePercentageOptions = () => {
     const options = [];
-    for (let i = 50; i <= 100; i += 10) {  // Шаг +10
+    for (let i = 50; i <= 100; i += 10) {
       options.push({ value: i, label: `${i}%` });
     }
     return options;
   };
 
   const handleYearChange = (event) => {
-    setSelectedYear(parseInt(event.target.value, 10));
+    const year = parseInt(event.target.value, 10);
+    setSelectedYear(year);
+    if (year === currentYear && selectedMonth > currentMonth) {
+      setSelectedMonth(currentMonth);
+    }
   };
 
   const handleMonthChange = (event) => {
     setSelectedMonth(parseInt(event.target.value, 10));
   };
 
-  // Обработчик для нового фильтра процентов
   const handlePercentageChange = (event) => {
     setSelectedPercentage(parseInt(event.target.value, 10));
   };
 
-  // Обновляем useEffect, чтобы передавать новое значение selectedPercentage
+  const handleActiveFilterChange = (event) => {
+    setShowOnlyActive(event.target.checked);
+  };
+
   useEffect(() => {
     if (onFilterChange) {
       onFilterChange({
         year: selectedYear,
         month: selectedMonth,
-        percentage: selectedPercentage // Добавляем процент в передаваемый объект
+        percentage: selectedPercentage,
+        showOnlyActive: showOnlyActive
       });
     }
-  }, [selectedYear, selectedMonth, selectedPercentage, onFilterChange]); // Добавляем selectedPercentage в зависимости
+  }, [selectedYear, selectedMonth, selectedPercentage, showOnlyActive, onFilterChange]);
+
+  const isMonthDisabled = (monthValue) => {
+    return selectedYear === currentYear && monthValue > currentMonth;
+  };
 
   return (
     <div className="filter-container">
       <div className="filter-item">
         <label htmlFor="year-select" className="filter-label">Год: </label>
-        <select id="year-select" value={selectedYear} onChange={handleYearChange} className="filter-select">
+        <select 
+          id="year-select" 
+          value={selectedYear} 
+          onChange={handleYearChange} 
+          className="filter-select"
+        >
           {generateYears().map((year) => (
             <option key={year} value={year}>{year}</option>
           ))}
@@ -80,14 +98,25 @@ const ProductionFilter = ({ onFilterChange }) => {
 
       <div className="filter-item">
         <label htmlFor="month-select" className="filter-label">Месяц: </label>
-        <select id="month-select" value={selectedMonth} onChange={handleMonthChange} className="filter-select">
+        <select 
+          id="month-select" 
+          value={selectedMonth} 
+          onChange={handleMonthChange} 
+          className="filter-select"
+        >
           {months.map((month) => (
-            <option key={month.value} value={month.value}>{month.label}</option>
+            <option 
+              key={month.value} 
+              value={month.value}
+              disabled={isMonthDisabled(month.value)}
+              className={isMonthDisabled(month.value) ? 'disabled-month' : ''}
+            >
+              {month.label}
+            </option>
           ))}
         </select>
       </div>
 
-      {/* Новый элемент фильтра для процентов */}
       <div className="filter-item">
         <label htmlFor="percentage-select" className="filter-label">Процент: </label>
         <select
@@ -100,6 +129,19 @@ const ProductionFilter = ({ onFilterChange }) => {
             <option key={option.value} value={option.value}>{option.label}</option>
           ))}
         </select>
+      </div>
+
+      <div className="filter-item">
+        <label htmlFor="active-filter" className="filter-label2">
+          <input
+            id="active-filter"
+            type="checkbox"
+            checked={showOnlyActive}
+            onChange={handleActiveFilterChange}
+            className="filter-checkbox"
+          />
+          Только активные
+        </label>
       </div>
     </div>
   );

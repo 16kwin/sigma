@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import TableFilter from './TableFilter'; // Убедитесь, что путь правильный
+import TableFilter from './TableFilter';
 import "./table.css";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
 function calculateDays(days) {
   if (!days || days === "Нет данных") {
@@ -39,7 +41,17 @@ function Table() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filteredTransactions, setFilteredTransactions] = useState([]); // Добавляем состояние
-
+ const TOOLTIPS = {
+    planPpp: "Суммарное время за все нормативы на операции и опции",
+    factTime: "(Дата и время завершения операции (факт))-(Дата и время начала операции (факт))",
+    deadline: "|((Норматив на операцию + норматив на опцию)/(Затраченное факт-Устранение замечаний по потерям)*100)-100|",
+    planStart: "Планируемая дата начала по БОС+Нормативы на операцию и опции (с учетом рабочих дней и суточной нормы)",
+    forecastStart: "Прогнозируемая дата начала (Управление сделками)+Нормативы на операцию и опции (с учетом рабочих дней и суточной нормы)",
+    factStart: "Фактическая дата и время начала выполнения операции",
+    planEnd: "Планируемая дата завершения по БОС - Нормативы на операцию и опции (с учетом рабочих дней и суточной нормы)",
+    forecastEnd: "Прогнозируемая дата завершения - Нормативы на операцию и опции (с учетом рабочих дней и суточной нормы)",
+    factEnd: "Фактическая дата завершения - Нормативы на операцию и опции (с учетом рабочих дней и суточной нормы)",
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -88,43 +100,70 @@ const formatAdjustedPercentage = (value) => {
     <div className="table-container">
       <TableFilter transactions={transactions} onFilter={setFilteredTransactions} header={header} />
       <br/>
-      <br/>{/* Оборачиваем таблицу в div */}
+      <br/>
       <div className="table-scroll-wrapper">
         <table className="table-format">
           <thead className="head"> 
             <tr className="strokahead">
-              <td className="colonkahead" rowspan="2">Статус</td>
-              <td className="colonkahead" rowspan="2">Транзакция</td>
-              <td className="colonkahead" rowspan="2">План на ППП, час</td>
-              <td className="colonkahead" rowspan="2">Операция</td>
-              <td className="colonkahead" rowspan="2">Норматив на операцию, час</td>
-              <td className="colonkahead" rowspan="2">Норматив на опцию, час</td>
-              <td className="colonkahead" rowspan="2">Затрачено факт, час</td>
-              <td className="colonkahead" rowspan="2">Закрытие в срок</td>
-              <td className="colonkahead" rowspan="2">Устранение замечаний по потерям, час</td>
-              <td className="colonkahead" colspan="3">Начало ППП</td>
-              <td className="colonkahead" rowspan="2">Входной контроль</td>
-              <td className="colonkahead" rowspan="2">Подключение</td>
-              <td className="colonkahead" rowspan="2">Проверка механиком</td>
-              <td className="colonkahead" rowspan="2">Проверка электронщиком</td>
-              <td className="colonkahead" rowspan="2">Проверка технологом</td>
-              <td className="colonkahead" rowspan="2">Выходной контроль</td>
-              <td className="colonkahead" rowspan="2">Транспортное</td>
-              <td className="colonkahead" colspan="3">Завершение ППП</td>
-              <td className="colonkahead" colspan="3">Дата отргузки</td>
+              <td className="colonkahead" rowSpan="2" data-tooltip-id="status-tooltip">Статус</td>
+              <td className="colonkahead" rowSpan="2" data-tooltip-id="transaction-tooltip">Транзакция</td>
+              <td className="colonkahead" rowSpan="2" data-tooltip-id="planPpp-tooltip">План на ППП, час</td>
+              <td className="colonkahead" rowSpan="2" data-tooltip-id="operation-tooltip">Операция</td>
+              <td className="colonkahead" rowSpan="2" data-tooltip-id="operationNorm-tooltip">Норматив на операцию, час</td>
+              <td className="colonkahead" rowSpan="2" data-tooltip-id="optionNorm-tooltip">Норматив на опцию, час</td>
+              <td className="colonkahead" rowSpan="2" data-tooltip-id="factTime-tooltip">Затрачено факт, час</td>
+              <td className="colonkahead" rowSpan="2" data-tooltip-id="deadline-tooltip">Закрытие в срок</td>
+              <td className="colonkahead" rowSpan="2" data-tooltip-id="problemTime-tooltip">Устранение замечаний по потерям, час</td>
+              <td className="colonkahead" colSpan="3" data-tooltip-id="planStart-tooltip">Начало ППП</td>
+              <td className="colonkahead" rowSpan="2" data-tooltip-id="inputControl-tooltip">Входной контроль</td>
+              <td className="colonkahead" rowSpan="2" data-tooltip-id="connection-tooltip">Подключение</td>
+              <td className="colonkahead" rowSpan="2" data-tooltip-id="mechanicCheck-tooltip">Проверка механиком</td>
+              <td className="colonkahead" rowSpan="2" data-tooltip-id="electronCheck-tooltip">Проверка электронщиком</td>
+              <td className="colonkahead" rowSpan="2" data-tooltip-id="technologistCheck-tooltip">Проверка технологом</td>
+              <td className="colonkahead" rowSpan="2" data-tooltip-id="outputControl-tooltip">Выходной контроль</td>
+              <td className="colonkahead" rowSpan="2" data-tooltip-id="transport-tooltip">Транспортное</td>
+              <td className="colonkahead" colSpan="3" data-tooltip-id="planEnd-tooltip">Завершение ППП</td>
+              <td className="colonkahead" colSpan="3" data-tooltip-id="planShipment-tooltip">Дата отгрузки</td>
             </tr>
             <tr className="strokacolonkahead">
-              <td className="colonkahead">План <br/>(По БОС)</td>
-              <td className="colonkahead">Прогноз <br/>(Упр.сделками)</td>
-              <td className="colonkahead">Факт <br/>(Факт начала)</td>
-              <td className="colonkahead">План <br/>(По БОС)</td>
-              <td className="colonkahead">Прогноз <br/>(Упр.сделками)</td>
-              <td className="colonkahead">Факт <br/>(Факт завершения)</td>
-              <td className="colonkahead">План</td>
-              <td className="colonkahead">Прогноз</td>
-              <td className="colonkahead">Факт</td>
+              <td className="colonkahead" data-tooltip-id="planStart-tooltip">План <br/>(По БОС)</td>
+              <td className="colonkahead" data-tooltip-id="forecastStart-tooltip">Прогноз <br/>(Упр.сделками)</td>
+              <td className="colonkahead" data-tooltip-id="factStart-tooltip">Факт <br/>(Факт начала)</td>
+              <td className="colonkahead" data-tooltip-id="planEnd-tooltip">План <br/>(По БОС)</td>
+              <td className="colonkahead" data-tooltip-id="forecastEnd-tooltip">Прогноз <br/>(Упр.сделками)</td>
+              <td className="colonkahead" data-tooltip-id="factEnd-tooltip">Факт <br/>(Факт завершения)</td>
+              <td className="colonkahead" data-tooltip-id="planShipment-tooltip">План</td>
+              <td className="colonkahead" data-tooltip-id="forecastShipment-tooltip">Прогноз</td>
+              <td className="colonkahead" data-tooltip-id="factShipment-tooltip">Факт</td>
             </tr>
           </thead>
+          
+          {/* Рендер тултипов */}
+          <Tooltip id="status-tooltip" place="bottom" content={TOOLTIPS.status} />
+          <Tooltip id="transaction-tooltip" place="bottom" content={TOOLTIPS.transaction} />
+          <Tooltip id="planPpp-tooltip" place="bottom" content={TOOLTIPS.planPpp} />
+          <Tooltip id="operation-tooltip" place="bottom" content={TOOLTIPS.operation} />
+          <Tooltip id="operationNorm-tooltip" place="bottom" content={TOOLTIPS.operationNorm} />
+          <Tooltip id="optionNorm-tooltip" place="bottom" content={TOOLTIPS.optionNorm} />
+          <Tooltip id="factTime-tooltip" place="bottom" content={TOOLTIPS.factTime} />
+          <Tooltip id="deadline-tooltip" place="bottom" content={TOOLTIPS.deadline} />
+          <Tooltip id="problemTime-tooltip" place="bottom" content={TOOLTIPS.problemTime} />
+          <Tooltip id="planStart-tooltip" place="bottom" content={TOOLTIPS.planStart} />
+          <Tooltip id="forecastStart-tooltip" place="bottom" content={TOOLTIPS.forecastStart} />
+          <Tooltip id="factStart-tooltip" place="bottom" content={TOOLTIPS.factStart} />
+          <Tooltip id="inputControl-tooltip" place="bottom" content={TOOLTIPS.inputControl} />
+          <Tooltip id="connection-tooltip" place="bottom" content={TOOLTIPS.connection} />
+          <Tooltip id="mechanicCheck-tooltip" place="bottom" content={TOOLTIPS.mechanicCheck} />
+          <Tooltip id="electronCheck-tooltip" place="bottom" content={TOOLTIPS.electronCheck} />
+          <Tooltip id="technologistCheck-tooltip" place="bottom" content={TOOLTIPS.technologistCheck} />
+          <Tooltip id="outputControl-tooltip" place="bottom" content={TOOLTIPS.outputControl} />
+          <Tooltip id="transport-tooltip" place="bottom" content={TOOLTIPS.transport} />
+          <Tooltip id="planEnd-tooltip" place="bottom" content={TOOLTIPS.planEnd} />
+          <Tooltip id="forecastEnd-tooltip" place="bottom" content={TOOLTIPS.forecastEnd} />
+          <Tooltip id="factEnd-tooltip" place="bottom" content={TOOLTIPS.factEnd} />
+          <Tooltip id="planShipment-tooltip" place="bottom" content={TOOLTIPS.planShipment} />
+          <Tooltip id="forecastShipment-tooltip" place="bottom" content={TOOLTIPS.forecastShipment} />
+          <Tooltip id="factShipment-tooltip" place="bottom" content={TOOLTIPS.factShipment} />
           {filteredTransactions.map(transactions => (
             <React.Fragment key={transactions.transaction}>
               <tbody className="table-body">
@@ -178,7 +217,7 @@ const formatAdjustedPercentage = (value) => {
   {formatAdjustedPercentage(transactions.vhodControlTimeExceeded)}
 </td>
                   <td className="colonka">0</td>
-                  <td className="colonka">{transactions.planDateStart}</td>
+                  <td className="colonka date-no-wrap">{transactions.planDateStart}</td>
                   <td className="colonka">
                     {transactions.factDateStart ? transactions.factDateStart : transactions.forecastDateStart}
                   </td>

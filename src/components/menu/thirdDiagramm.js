@@ -219,8 +219,13 @@ function ThirdDiagramm({ months }) {
           <BarChart 
             data={data}
             onClick={handleBarClick}
+            margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
           >
-            <XAxis dataKey={diagramType === 'month' ? "month" : "year"} />
+            <XAxis 
+              dataKey={diagramType === 'month' ? "month" : "year"} 
+              tick={{ fontSize: 15 }} // Уменьшаем размер шрифта
+              interval={0} // Гарантируем показ всех подписей
+            />
             <Tooltip 
               formatter={(value) => [`${value}`, 'Транзакций']}
               labelFormatter={(label) => {

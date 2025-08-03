@@ -25,7 +25,22 @@
   font-weight: bold; /* Сделаем метки жирнее */
   color: #333;
 }
+/* Добавьте в productionFilter.css */
+.filter-label2 {
+  display: flex;
+    font-size: 14px;
+    align-items: center;
+     margin-top: 7px;
+    font-weight: bold;
+  align-items: center;
+  gap: 8px; /* Пространство между чекбоксом и текстом */
+  cursor: pointer;
+}
 
+.filter-checkbox {
+  cursor: pointer;
+  margin: 0; /* Убираем лишние отступы */
+}
 .filter-select {
   padding: 8px 12px; /* Увеличил padding для удобства */
   border: 1px solid #ddd;
