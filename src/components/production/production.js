@@ -18,8 +18,8 @@ const Production = () => {
   // Тексты для тултипов
   const TOOLTIPS = {
     onTimeRatio: "Количество этапов выполненных в срок/ количество выполненных этапов",
-    normCompletion: "|(Фактическое время работы/нормтаивное время работы)*100-100|",
-    productivity: "|(Фактическое время работы/фонд рабочего времени за месяц)*100-100|"
+    normCompletion: "(Нормативное время работы/Фактическое время работы)*100",
+    productivity: "(Фактическое время работы/Фонд рабочего времени)*100"
   };
 
   const handleFilterChange = (newFilterParams) => {
@@ -83,9 +83,9 @@ const Production = () => {
       }
 
       if (numericValue >= comparisonValue) {
-        return { backgroundColor: 'lightgreen' };
+        return { backgroundColor: '#D4EFDF' };
       } else {
-        return { backgroundColor: 'lightcoral' };
+        return { backgroundColor: '#FFB6B6' };
       }
     } catch (e) {
       console.error("Error parsing percentage:", percentageValue, e);
@@ -125,8 +125,7 @@ const Production = () => {
           <Tooltip id="normTime-tooltip" place="bottom" content={TOOLTIPS.normTime} />
           <Tooltip id="actualTime-tooltip" place="bottom" content={TOOLTIPS.actualTime} />
           <Tooltip id="normCompletion-tooltip" place="bottom" content={TOOLTIPS.normCompletion} />
-          <Tooltip id="workTimeFund-tooltip" place="bottom" content={TOOLTIPS.workTimeFund} />
-          <Tooltip id="productivity-tooltip" place="bottom" content={TOOLTIPS.productivity} />
+          <Tooltip id="productivity-tooltip" place="bottom-start" content={TOOLTIPS.productivity} />
 
           <tbody>
             {filteredData && filteredData.length > 0 ? (
@@ -145,8 +144,8 @@ const Production = () => {
                           : (() => {
                               const parsedValue = parseFloat(employee.exceededOrNoOperations.replace(',', '.'));
                               if (isNaN(parsedValue)) return 'white';
-                              if (parsedValue < 1) return 'lightcoral';
-                              if (parsedValue === 1) return 'lightgreen';
+                              if (parsedValue < 1) return '#FFB6B6';
+                              if (parsedValue === 1) return '#D4EFDF';
                               return 'white';
                             })()
                     }}

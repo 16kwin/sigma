@@ -4,7 +4,7 @@ function Info() {
   return (
     <div className="info-container">
       <div className="info-block">
-        Версия СИГМА: 0.9.9
+        Версия СИГМА: 1.0.0
       </div>
     </div>
   );

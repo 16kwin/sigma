@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, Cell, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip,LabelList, Legend, Cell, ResponsiveContainer } from 'recharts';
 import "../../styles/thirdDiagramm.css";
 
 const getSeasonColor = (month) => {
@@ -251,21 +251,31 @@ function ThirdDiagramm({ months }) {
           {bottomChartLabel}
         </div>
 
-        <div className="performance-chart-container">
-          <ResponsiveContainer width="100%" height={75}>
-            <BarChart
-              data={performanceData}
-              margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
-            >
-              <XAxis hide />
-              <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="value">
-                {performanceData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+<div className="performance-chart-container">
+  <ResponsiveContainer width="100%" height={75}>
+    <BarChart
+      data={performanceData}
+      margin={{ top: 0, right: 0, left: 0, bottom: 13}}
+    >
+      <XAxis hide />
+      <Tooltip content={<CustomTooltip />} />
+      <Bar dataKey="value">
+        {performanceData.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={entry.color} />
+        ))}
+        <LabelList 
+          dataKey="value" 
+          position={(entry) => entry.value === 0 ? "top" : "insideMiddle"}
+          fill="#000"
+          fontSize={14}
+          formatter={(value) => value}
+          offset={5} // Отступ для значений над колонкой
+        />
+      </Bar>
+    </BarChart>
+  </ResponsiveContainer>
+
+
 
           <div className="performance-legend3">
             <div className="legend-item3">

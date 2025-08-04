@@ -143,6 +143,20 @@ const ProductionFilter = ({ onFilterChange }) => {
           Только активные
         </label>
       </div>
+      <div className="filter-legend5">
+  <div className="legend-item5">
+    <div className="legend-color5 success"></div>
+    <span className="legend-label5">Положительные значения</span>
+  </div>
+  <div className="legend-item5">
+    <div className="legend-color5 warning"></div>
+    <span className="legend-label5">Отрицательные значения</span>
+  </div>
+  <div className="legend-item5">
+    <div className="legend-color5 neutral"></div>
+    <span className="legend-label5">Нет данных</span>
+  </div>
+</div>
     </div>
   );
 };

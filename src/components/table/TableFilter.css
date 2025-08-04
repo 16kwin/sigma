@@ -10,7 +10,7 @@
   background-color: #f9f9f9;
   align-items: flex-start; /* Выравниваем элементы по верхнему краю */
   width: auto;
-    min-width: 100%; /* Занимаем всю доступную ширину */
+    min-width: 100vh; /* Занимаем всю доступную ширину */
 }
 
 .filter-label {
@@ -82,4 +82,41 @@
   .stats-table th {
     padding: 6px 8px;
   }
+}
+.depo-legend4 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 12px 20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.legend-item4 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-color4 {
+  width: 40px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+/* Цвета для элементов легенды */
+.success {
+  background-color: #D4EFDF;
+}
+
+.error {
+  background-color: #FFB6B6;
+}
+
+.warning {
+  background-color: lightyellow;
+}
+
+.control {
+  background-color: rgba(235, 67, 53);
 }

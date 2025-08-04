@@ -60,3 +60,43 @@
     border-color: #007bff; /* Подсветка при наведении/фокусе */
     outline: none; /* Убираем стандартный outline */
 }
+.filter-legend5 {
+  display: flex;
+  gap: 15px;
+  margin-left: auto; /* Автоматический отступ слева - прижимает к правому краю */
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.legend-item5 {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend-color5 {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.legend-label5 {
+  font-size: 13px;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* Цвета для легенды */
+.legend-color5.success {
+  background-color: #D4EFDF;
+}
+
+.legend-color5.warning {
+  background-color:#FFB6B6 ;
+}
+
+.legend-color5.neutral {
+  background-color: lightyellow;
+}

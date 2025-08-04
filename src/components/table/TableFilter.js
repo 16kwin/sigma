@@ -125,6 +125,25 @@ const TableFilter = ({ transactions, onFilter, header }) => {
           <option value="Ждет отгрузки">Ждет отгрузки</option>
         </select>
       </label>
+
+<div className="depo-legend4">
+  <div className="legend-item4">
+    <div className="legend-color4 success"></div>
+    <span>Выполнено в срок</span>
+  </div>
+  <div className="legend-item4">
+    <div className="legend-color4 error"></div>
+    <span>Просрочено</span>
+  </div>
+  <div className="legend-item4">
+    <div className="legend-color4 warning"></div>
+    <span>Нет данных</span>
+  </div>
+  <div className="legend-item4">
+    <div className="legend-color4 control"></div>
+    <span>Контроль руководителя</span>
+  </div>
+</div>
     </div>
   );
 };

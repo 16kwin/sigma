@@ -44,15 +44,13 @@ function Table() {
  const TOOLTIPS = {
     planPpp: "Суммарное время за все нормативы на операции и опции",
     factTime: "(Дата и время завершения операции (факт))-(Дата и время начала операции (факт))",
-    deadline: "|((Норматив на операцию + норматив на опцию)/(Затраченное факт-Устранение замечаний по потерям)*100)-100|",
+    deadline: "|((Норматив на операцию + норматив на опцию)/Затраченное факт*100)-100|",
     planStart: "Планируемая дата начала по БОС+Нормативы на операцию и опции (с учетом рабочих дней и суточной нормы)",
     forecastStart: "Прогнозируемая дата начала (Управление сделками)+Нормативы на операцию и опции (с учетом рабочих дней и суточной нормы)",
     factStart: "Фактическая дата и время начала выполнения операции",
     planEnd: "Планируемая дата завершения по БОС - Нормативы на операцию и опции (с учетом рабочих дней и суточной нормы)",
     forecastEnd: "Прогнозируемая дата завершения - Нормативы на операцию и опции (с учетом рабочих дней и суточной нормы)",
     factEnd: "Фактическая дата завершения - Нормативы на операцию и опции (с учетом рабочих дней и суточной нормы)",
-     SummTime1: "|((План на ППП/Сумма фактического времени)*100)-100|",
-       SummTime2: "Все фактического временя + все время по устранению замечаний по потерям + все время межоперационного ожидания",
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -166,6 +164,14 @@ const formatAdjustedPercentage = (value) => {
           <Tooltip id="planShipment-tooltip" place="bottom" content={TOOLTIPS.planShipment} />
           <Tooltip id="forecastShipment-tooltip" place="bottom" content={TOOLTIPS.forecastShipment} />
           <Tooltip id="factShipment-tooltip" place="bottom" content={TOOLTIPS.factShipment} />
+          <Tooltip
+  id="percentage-plan-tooltip"
+  place="bottom-start"
+  content="|(План ППП/Затрачено факт)*100-100\|"/>
+            <Tooltip
+  id="full-tooltip"
+  place="bottom-start"
+  content="Затрачено факт + Устранение замечаний по потерям + Межоперационное ожидание"/>
           {filteredTransactions.map(transactions => (
             <React.Fragment key={transactions.transaction}>
               <tbody className="table-body">
@@ -218,7 +224,7 @@ const formatAdjustedPercentage = (value) => {
     }}>
   {formatAdjustedPercentage(transactions.vhodControlTimeExceeded)}
 </td>
-                  <td className="colonka">0</td>
+                  <td className="colonka">0:00</td>
                   <td className="colonka date-no-wrap">{transactions.planDateStart}</td>
                   <td className="colonka">
                     {transactions.factDateStart ? transactions.factDateStart : transactions.forecastDateStart}
@@ -254,7 +260,7 @@ const formatAdjustedPercentage = (value) => {
     }}>
   {formatAdjustedPercentage(transactions.electricTimeExceeded)}
 </td>
-                  <td className="colonka">{transactions.electricProblemHours} </td>
+                  <td className="colonka">{transactions.electricProblemHours}:00 </td>
                   <td className="colonka">{transactions.planDate1}</td>
                   <td className="colonka">{transactions.factDate1}</td>
                   <td className="colonka">{transactions.podkluchenieStartTime}</td>
@@ -288,7 +294,7 @@ const formatAdjustedPercentage = (value) => {
     }}>
   {formatAdjustedPercentage(transactions.mechanicTimeExceeded)}
 </td>
-                  <td className="colonka">{transactions.mechanicProblemHours}</td>
+                  <td className="colonka">{transactions.mechanicProblemHours}:00</td>
                   <td className="colonka">{transactions.planDate2}</td>
                   <td className="colonka">{transactions.factDate2}</td>
                   <td className="colonka"> {transactions.proverkaMehanikomStartTime}</td>
@@ -322,7 +328,7 @@ const formatAdjustedPercentage = (value) => {
     }}>
   {formatAdjustedPercentage(transactions.electronTimeExceeded)}
 </td>
-                  <td className="colonka">{transactions.electronProblemHours}</td>
+                  <td className="colonka">{transactions.electronProblemHours}:00</td>
                   <td className="colonka">{transactions.planDate3}</td>
                   <td className="colonka">{transactions.factDate3}</td>
                   <td className="colonka">{transactions.proverkaElectronStartTime}</td>
@@ -357,7 +363,7 @@ const formatAdjustedPercentage = (value) => {
     }}>
   {formatAdjustedPercentage(transactions.techTimeExceeded)}
 </td>
-                  <td className="colonka">{transactions.techProblemHours}</td>
+                  <td className="colonka">{transactions.techProblemHours}:00</td>
                   <td className="colonka">{transactions.planDate4}</td>
                   <td className="colonka">{transactions.factDate4}</td>
                   <td className="colonka">{transactions.proverkaTehnologomStartTime}</td>
@@ -391,7 +397,7 @@ const formatAdjustedPercentage = (value) => {
     }}>
   {formatAdjustedPercentage(transactions.vihodControlTimeExceeded)}
 </td>
-                  <td className="colonka">0</td>
+                  <td className="colonka">0:00</td>
                   <td className="colonka">{transactions.planDate5}</td>
                   <td className="colonka">{transactions.factDate5}</td>
                   <td className="colonka">{transactions.vihodControlStartTime}</td>
@@ -425,7 +431,7 @@ const formatAdjustedPercentage = (value) => {
     }}>
   {formatAdjustedPercentage(transactions.transportTimeExceeded)}
 </td>
-                  <td className="colonka">{transactions.complexProblemHours}</td>
+                  <td className="colonka">{transactions.complexProblemHours}:00</td>
                   <td className="colonka">{transactions.planDate6}</td>
                   <td className="colonka">{transactions.factDate6}</td>
                   <td className="colonka">{transactions.transportPolozhenieStartTime}</td>
@@ -444,7 +450,7 @@ const formatAdjustedPercentage = (value) => {
                 <tr className="stroka">
                   <td className="colonka"></td>
                   <td className="colonka">Отклонение от плана (План ППП/Факт ППП)</td>
-<td className="colonka" data-tooltip-id="SummTime1"
+<td className="colonka"
     style={{
       backgroundColor:
         transactions.percentagePlanPpp === 'Нет данных'
@@ -452,15 +458,15 @@ const formatAdjustedPercentage = (value) => {
           : getAdjustedPercentage(transactions.percentagePlanPpp) >= 0
             ? 'lightgreen'
             : '#FFB6B6',
-    }}>
+    }} data-tooltip-id="percentage-plan-tooltip">
   {formatAdjustedPercentage(transactions.percentagePlanPpp)}
 </td>
                   <td className="colonka">Сумма:</td>
-                  <td className="colonka">{header.totalHeaderNorms}</td>
-                  <td className="colonka">{transactions.totalProfessionNorms}</td>
+                  <td className="colonka">{header.totalHeaderNorms}:00</td>
+                  <td className="colonka">{transactions.totalProfessionNorms}:00</td>
                   <td className="colonka">{transactions.totalOperationsWorkTime}</td>
                   <td className="colonka"></td>
-                  <td className="colonka">{transactions.totalProblemHours}</td>
+                  <td className="colonka">{transactions.totalProblemHours}:00</td>
                   <td className="colonka"></td>
                   <td className="colonka"></td>
                   <td className="colonka"></td>
@@ -472,15 +478,13 @@ const formatAdjustedPercentage = (value) => {
                   <td className="colonka">Межоперационное ожидание</td>
                   <td className="colonka">{transactions.totalTimeBetweenOperations}</td>
                   <td className="colonka"></td>
-                  <td className="colonka" data-tooltip-id="SummTime2">Итоговое время цикла</td>
-                  <td className="colonka">{transactions.totalTimeAll}<br/>{calculateDaysFromTime(transactions.totalTimeAll)}</td>
+                  <td className="colonka">Итоговое время цикла</td>
+                  <td className="colonka" data-tooltip-id="full-tooltip">{transactions.totalTimeAll}<br/>{calculateDaysFromTime(transactions.totalTimeAll)}</td>
                   <td className="colonka"></td>
                   <td className="colonka"></td>
                   <td className="colonka"></td>
                 </tr>
-              </tbody>  
-              <Tooltip id="SummTime1" place="bottom" content={TOOLTIPS.SummTime1} />
-              <Tooltip id="SummTime2" place="bottom" content={TOOLTIPS.SummTime2} />    
+              </tbody>      
               <br/>
             </React.Fragment>
           ))}
