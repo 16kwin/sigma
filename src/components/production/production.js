@@ -41,6 +41,37 @@ const Production = () => {
       : data;
   }, [data, showOnlyActive]);
 
+  const getPercentageCellStyle = (percentageValue, comparisonValue) => {
+    if (percentageValue === "Нет данных") {
+      return { backgroundColor: 'lightyellow' };
+    }
+
+    // Добавленная обработка для Infinity и "Контроль руководителя"
+    if (percentageValue === "Infinity" || percentageValue === "Контроль руководителя") {
+      return { 
+        backgroundColor: 'rgba(235, 67, 53)',
+        color: 'white'
+      };
+    }
+
+    try {
+      const numericValue = parseFloat(percentageValue.toString().replace(',', '.').replace('%', ''));
+
+      if (isNaN(numericValue)) {
+        return { backgroundColor: 'white' };
+      }
+
+      if (numericValue >= comparisonValue) {
+        return { backgroundColor: '#D4EFDF' };
+      } else {
+        return { backgroundColor: '#FFB6B6' };
+      }
+    } catch (e) {
+      console.error("Error parsing percentage:", percentageValue, e);
+      return { backgroundColor: 'white' };
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -70,29 +101,6 @@ const Production = () => {
     fetchData();
   }, [filterParams]);
 
-  const getPercentageCellStyle = (percentageValue, comparisonValue) => {
-    if (percentageValue === "Нет данных") {
-      return { backgroundColor: 'lightyellow' };
-    }
-
-    try {
-      const numericValue = parseFloat(percentageValue.toString().replace(',', '.').replace('%', ''));
-
-      if (isNaN(numericValue)) {
-        return { backgroundColor: 'white' };
-      }
-
-      if (numericValue >= comparisonValue) {
-        return { backgroundColor: '#D4EFDF' };
-      } else {
-        return { backgroundColor: '#FFB6B6' };
-      }
-    } catch (e) {
-      console.error("Error parsing percentage:", percentageValue, e);
-      return { backgroundColor: 'white' };
-    }
-  };
-
   return (
     <div>
       <ProductionFilter onFilterChange={handleFilterChange} />
@@ -117,14 +125,15 @@ const Production = () => {
             </tr>
           </thead>
 
-          <Tooltip id="employee-tooltip" place="bottom" content={TOOLTIPS.employee} />
-          <Tooltip id="specialization-tooltip" place="bottom" content={TOOLTIPS.specialization} />
-          <Tooltip id="completedStages-tooltip" place="bottom" content={TOOLTIPS.completedStages} />
-          <Tooltip id="onTimeStages-tooltip" place="bottom" content={TOOLTIPS.onTimeStages} />
+          <Tooltip id="employee-tooltip" place="bottom" content="ФИО сотрудника" />
+          <Tooltip id="specialization-tooltip" place="bottom" content="Специализация сотрудника" />
+          <Tooltip id="completedStages-tooltip" place="bottom" content="Общее количество выполненных этапов" />
+          <Tooltip id="onTimeStages-tooltip" place="bottom" content="Количество этапов, выполненных без превышения нормативов" />
           <Tooltip id="onTimeRatio-tooltip" place="bottom" content={TOOLTIPS.onTimeRatio} />
-          <Tooltip id="normTime-tooltip" place="bottom" content={TOOLTIPS.normTime} />
-          <Tooltip id="actualTime-tooltip" place="bottom" content={TOOLTIPS.actualTime} />
+          <Tooltip id="normTime-tooltip" place="bottom" content="Суммарное нормативное время по всем операциям" />
+          <Tooltip id="actualTime-tooltip" place="bottom" content="Фактически затраченное время" />
           <Tooltip id="normCompletion-tooltip" place="bottom" content={TOOLTIPS.normCompletion} />
+          <Tooltip id="workTimeFund-tooltip" place="bottom" content="Доступный фонд рабочего времени" />
           <Tooltip id="productivity-tooltip" place="bottom-start" content={TOOLTIPS.productivity} />
 
           <tbody>
@@ -150,7 +159,7 @@ const Production = () => {
                             })()
                     }}
                   >
-                    {employee.exceededOrNoOperations}
+                    {employee.exceededOrNoOperations === "Infinity" ? "Контроль руководителя" : employee.exceededOrNoOperations}
                   </td>
                   <td className='colonka2'>{employee.totalNormTime}:00:00</td>
                   <td className='colonka2'>{employee.totalWorkTime}</td>
@@ -158,25 +167,26 @@ const Production = () => {
                     className='colonka2'
                     style={getPercentageCellStyle(employee.workTimePercentage, selectedPercentage)}
                   >
-                    {employee.workTimePercentage}
+                    {employee.workTimePercentage === "Infinity" ? "Контроль руководителя" : employee.workTimePercentage}
                   </td>
                   <td className='colonka2'>{employee.hoursMounth}</td>
                   <td
                     className='colonka2'
                     style={getPercentageCellStyle(employee.hoursMounthPercentage, selectedPercentage)}
                   >
-                    {employee.hoursMounthPercentage}
+                    {employee.hoursMounthPercentage === "Infinity" ? "Контроль руководителя" : employee.hoursMounthPercentage}
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
+                <td colSpan="10">
+                  {!loading && !error && (data ? "Нет данных" : "Выберите год и месяц")}
+                </td>
               </tr>
             )}
           </tbody>
         </table>
-
-        {!loading && !error && !data && <p>Выберите год и месяц для отображения данных.</p>}
       </div>
     </div>
   );
