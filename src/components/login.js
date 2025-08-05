@@ -12,7 +12,7 @@ function Login() {
 
   function Processing(e) {
     e.preventDefault();
-    if (login === "admin" && password === "123") {
+    if (login === "admin" && password === "Tuduta95") {
       localStorage.setItem('isLoggedIn', 'true');
       setIsLoggedIn(true);
     } else {
