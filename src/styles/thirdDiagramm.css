@@ -1,4 +1,3 @@
-/* Основной контейнер */
 .third-container {
   flex-shrink: 0;
   background-color: white;
@@ -10,11 +9,8 @@
   flex-direction: column;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   flex: 1;
-  min-height: 500px;
-  height: 100%;
 }
 
-/* Шапка компонента */
 .third-header {
   background-color: rgba(66, 194, 244);
   color: white;
@@ -25,7 +21,6 @@
   margin: -10px -10px 10px -10px;
 }
 
-/* Блок с переключателями */
 .volume-and-buttons {
   display: flex;
   flex-direction: column;
@@ -77,106 +72,77 @@
   font-weight: 500;
 }
 
-/* Главный блок с графиками */
 .third-main-block {
   background: white;
   border-radius: 6px;
-  flex: 1;
-  min-height: 0;
+  flex-grow: 1;
   display: flex;
+  flex: 1; /* Занимаем всё доступное пространство */
+  min-height: 0;
   flex-direction: column;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   border: 1px solid #2196F3;
   padding: 15px;
   gap: 15px;
-  height: 100%;
+}
+.third-main-block > .recharts-wrapper {
+  height: 60% !important; /* Фиксируем соотношение */
 }
 
-/* Верхний график */
-.top-chart-container {
-  flex: 1;
-  min-height: 0;
-  width: 100%;
-  position: relative;
-}
-
-/* Нижний график */
+/* Для нижнего графика */
 .performance-chart-container {
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  width: 100%;
-  align-items: stretch;
-}
-
-/* Стили для Recharts */
-.recharts-responsive-container {
-  width: 100% !important;
-  height: 100% !important;
-  min-height: 150px;
-}
-
-.recharts-surface {
-  overflow: visible;
-}
-
-/* Подпись графика */
+  height: 40%; }
+  
 .bottom-chart-label {
   text-align: center;
   font-weight: bold;
   color: #333;
-  margin: 10px 0;
 }
 
-/* Легенда */
+.recharts-legend-item {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.recharts-legend-item-text {
+  margin-left: 5px;
+  font-size: 14px;
+}
+.performance-chart-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
 .performance-legend3 {
   margin-left: 20px;
-  padding: 10px;
+  padding: 5px;
   border: 1px solid #eee;
   border-radius: 8px;
   background: #f9f9f9;
   width: 40%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  max-height: 50px;
 }
 
 .legend-item3 {
   display: flex;
   align-items: center;
-  margin: 3px 0;
-  font-size: 12px;
+  font-size: 7px;
 }
 
 .legend-color3 {
-  width: 16px;
-  height: 16px;
-  margin-right: 8px;
-  border-radius: 3px;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+  margin-right: 10px;
+  border-radius: 4px;
   border: 1px solid #ddd;
 }
 
-/* Адаптивность */
-@media (max-width: 768px) {
-  .performance-chart-container {
-    flex-direction: column;
-  }
-  
-  .performance-legend3 {
-    width: 100%;
-    margin-left: 0;
-    margin-top: 10px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .legend-item3 {
-    margin: 5px 10px;
-    font-size: 10px;
-  }
-  
-  .third-container {
-    min-height: 600px;
-  }
+.bottom-chart-label {
+  text-align: center;
+  margin: 10px 0;
+  font-weight: bold;
+  color: #333;
 }
