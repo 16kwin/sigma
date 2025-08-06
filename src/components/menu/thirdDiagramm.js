@@ -215,7 +215,7 @@ function ThirdDiagramm({ months }) {
       </div>
 
       <div className="third-main-block">
-        <ResponsiveContainer width="100%" height={100}>
+        <ResponsiveContainer width="100%">
           <BarChart 
             data={data}
             onClick={handleBarClick}
@@ -252,7 +252,7 @@ function ThirdDiagramm({ months }) {
         </div>
 
 <div className="performance-chart-container">
-  <ResponsiveContainer width="100%" height={75}>
+  <ResponsiveContainer width="100%">
     <BarChart
       data={performanceData}
       margin={{ top: 0, right: 0, left: 0, bottom: 13}}
