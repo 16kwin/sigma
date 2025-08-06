@@ -19,8 +19,8 @@
 }
 
 .bottom-item {
-  flex: 1; /* Таблица занимает половину высоты */
-  max-height: 50vh; /* Ограничиваем максимальную высоту */
+  flex: 1;
+   display: flex;/* Таблица занимает половину высоты *//* Ограничиваем максимальную высоту */
   border: 1px solid #ccc;
   padding: 20px;
   text-align: center;
