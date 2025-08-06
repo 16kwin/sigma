@@ -73,7 +73,6 @@ const CustomTooltip = ({ active, payload }) => {
 
   const options = {
     responsive: true,
-    aspectRatio: 2.2,
     plugins: {
       legend: { display: true, position: "bottom", align: "start"},
       tooltip: {
