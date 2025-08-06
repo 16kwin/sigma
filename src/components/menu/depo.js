@@ -8,7 +8,7 @@ function Depo({ data }) {
     if (!data?.transactions) return [];
     const original = data.transactions;
     // Добавляем разделитель после каждого полного набора данных
-    return [...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }];
+    return [...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }];
   }, [data]);
 
   const toggleAnimation = () => {
