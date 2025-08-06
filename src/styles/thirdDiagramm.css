@@ -1,5 +1,5 @@
 .third-container {
-  flex: 1;
+  flex-shrink: 0;
   background-color: white;
   border: 1px solid #42C2F4;
   margin: 10px;
@@ -7,9 +7,8 @@
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  min-height: 500px; /* Минимальная высота */
-  height: 100%;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  flex: 1;
 }
 
 .third-header {
@@ -74,85 +73,76 @@
 }
 
 .third-main-block {
-  flex: 1;
+  background: white;
+  border-radius: 6px;
+  flex-grow: 1;
   display: flex;
-  flex-direction: column;
+  flex: 1; /* Занимаем всё доступное пространство */
   min-height: 0;
-  gap: 8px;
+  flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   border: 1px solid #2196F3;
   padding: 15px;
-  border-radius: 6px;
+  gap: 15px;
+}
+.third-main-block > .recharts-wrapper {
+  height: 60% !important; /* Фиксируем соотношение */
 }
 
-.main-chart-container {
-  flex: 2;
-  min-height: 0;
-  width: 100%;
-}
-
-.bottom-block {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  width: 100%;
-}
-
+/* Для нижнего графика */
+.performance-chart-container {
+  height: 40%; }
+  
 .bottom-chart-label {
   text-align: center;
   font-weight: bold;
   color: #333;
-  margin-bottom: 8px;
 }
 
+.recharts-legend-item {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.recharts-legend-item-text {
+  margin-left: 5px;
+  font-size: 14px;
+}
 .performance-chart-container {
-  flex: 1;
   display: flex;
-  min-height: 0;
   width: 100%;
-  gap: 15px;
-}
-
-.performance-chart-wrapper {
-  flex: 3;
-  min-height: 0;
+  align-items: center;
 }
 
 .performance-legend3 {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 10px;
+  margin-left: 20px;
+  padding: 5px;
   border: 1px solid #eee;
   border-radius: 8px;
   background: #f9f9f9;
-  min-width: 200px;
+  width: 40%;
+  max-height: 50px;
 }
 
 .legend-item3 {
   display: flex;
   align-items: center;
-  margin: 5px 0;
-  font-size: 14px;
+  font-size: 7px;
 }
 
 .legend-color3 {
   width: 20px;
   height: 20px;
+  margin: 2px;
   margin-right: 10px;
   border-radius: 4px;
   border: 1px solid #ddd;
 }
 
-.custom-tooltip {
-  background: #fff;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.recharts-bar-rectangle {
-  cursor: pointer;
+.bottom-chart-label {
+  text-align: center;
+  margin: 10px 0;
+  font-weight: bold;
+  color: #333;
 }

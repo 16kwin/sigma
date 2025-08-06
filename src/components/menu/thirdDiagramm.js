@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, LabelList, Legend, Cell, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip,LabelList, Legend, Cell, ResponsiveContainer } from 'recharts';
 import "../../styles/thirdDiagramm.css";
 
 const getSeasonColor = (month) => {
@@ -33,7 +33,12 @@ const getCurrentMonthKey = () => {
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="custom-tooltip">
+      <div className="custom-tooltip" style={{
+        background: '#fff',
+        padding: '5px',
+        border: '1px solid #ccc',
+        borderRadius: '4px'
+      }}>
         <p style={{ fontWeight: 'bold' }}>{payload[0].payload.name}</p>
         <p>Транзакций: {payload[0].value}</p>
       </div>
@@ -100,35 +105,60 @@ function ThirdDiagramm({ months }) {
     }));
   };
 
-  const handleBarClick = (data) => {
-    const payload = data?.activePayload?.[0]?.payload;
-    if (!payload) return;
+  const handleBarClick = (data, event) => {
+    try {
+      const payload = event?.activePayload?.[0]?.payload || 
+                     data?.activePayload?.[0]?.payload || 
+                     data?.payload || 
+                     data;
+      
+      if (!payload) {
+        console.error('No payload found in click data:', { data, event });
+        return;
+      }
 
-    const key = diagramType === 'month' ? payload.monthKey : payload.year;
-    setSelectedKey(key);
+      const key = diagramType === 'month' ? payload.monthKey : payload.year;
+      if (!key) {
+        console.error('Key not found in payload:', payload);
+        return;
+      }
+
+      console.log(`Clicked ${diagramType}:`, key);
+      setSelectedKey(key);
+    } catch (error) {
+      console.error('Error in handleBarClick:', error);
+    }
   };
 
   const performanceData = useMemo(() => {
-    let targetData;
-    
-    if (selectedKey) {
-      targetData = data.find(item => 
-        diagramType === 'month' 
-          ? item.monthKey === selectedKey 
-          : item.year === selectedKey
-      );
-    }
-    
-    if (!targetData) {
-      targetData = diagramType === 'month'
-        ? data.find(item => item.monthKey === getCurrentMonthKey())
-        : data[0];
-    }
+    try {
+      let targetData;
+      
+      if (selectedKey) {
+        targetData = data.find(item => 
+          diagramType === 'month' 
+            ? item.monthKey === selectedKey 
+            : item.year === selectedKey
+        );
+      }
+      
+      if (!targetData) {
+        targetData = diagramType === 'month'
+          ? data.find(item => item.monthKey === getCurrentMonthKey())
+          : data[0]; // Теперь data[0] всегда 2025 год
+      }
 
-    return [
-      { name: 'Закрыто в срок', value: targetData?.onTimeCount || 0, color: '#D4EFDF' },
-      { name: 'Закрыто не в срок', value: targetData?.delayedCount || 0, color: '#FFB6B6' }
-    ];
+      return [
+        { name: 'Закрыто в срок', value: targetData?.onTimeCount || 0, color: '#D4EFDF' },
+        { name: 'Закрыто не в срок', value: targetData?.delayedCount || 0, color: '#FFB6B6' }
+      ];
+    } catch (error) {
+      console.error('Error calculating performanceData:', error);
+      return [
+        { name: 'Закрыто в срок', value: 0, color: '#D4EFDF' },
+        { name: 'Закрыто не в срок', value: 0, color: '#FFB6B6' }
+      ];
+    }
   }, [selectedKey, data, diagramType]);
 
   const bottomChartLabel = useMemo(() => {
@@ -143,15 +173,19 @@ function ThirdDiagramm({ months }) {
   }, [selectedKey, diagramType, data]);
 
   useEffect(() => {
-    const newData = diagramType === 'month' 
-      ? aggregateByMonth(months) 
-      : aggregateByYear(months);
-    setData(newData);
-    
-    const defaultKey = diagramType === 'month' 
-      ? getCurrentMonthKey() 
-      : '2025';
-    setSelectedKey(defaultKey);
+    try {
+      const newData = diagramType === 'month' 
+        ? aggregateByMonth(months) 
+        : aggregateByYear(months);
+      setData(newData);
+      
+      const defaultKey = diagramType === 'month' 
+        ? getCurrentMonthKey() 
+        : '2025'; // Всегда 2025 год по умолчанию
+      setSelectedKey(defaultKey);
+    } catch (error) {
+      console.error('Error initializing data:', error);
+    }
   }, [diagramType, months]);
 
   return (
@@ -181,78 +215,76 @@ function ThirdDiagramm({ months }) {
       </div>
 
       <div className="third-main-block">
-        <div className="main-chart-container">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart 
-              data={data}
-              onClick={handleBarClick}
-              margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
-            >
-              <XAxis 
-                dataKey={diagramType === 'month' ? "month" : "year"} 
-                tick={{ fontSize: 12 }}
-                interval={0}
-              />
-              <Tooltip 
-                formatter={(value) => [`${value}`, 'Транзакций']}
-                labelFormatter={(label) => diagramType === 'month' 
-                  ? data.find(d => d.month === label)?.fullMonth || label
-                  : `${label} год`
+        <ResponsiveContainer width="100%" height={100}>
+          <BarChart 
+            data={data}
+            onClick={handleBarClick}
+            margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+          >
+            <XAxis 
+              dataKey={diagramType === 'month' ? "month" : "year"} 
+              tick={{ fontSize: 15 }} // Уменьшаем размер шрифта
+              interval={0} // Гарантируем показ всех подписей
+            />
+            <Tooltip 
+              formatter={(value) => [`${value}`, 'Транзакций']}
+              labelFormatter={(label) => {
+                if (diagramType === 'month') {
+                  return data.find(d => d.month === label)?.fullMonth || label;
                 }
-              />
-              <Bar 
-                dataKey="transactionCount"
-                barCategoryGap="15%"
-                onClick={handleBarClick}
-              >
-                {data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+                return `${label} год`;
+              }}
+            />
+            <Bar 
+              dataKey="transactionCount"
+              style={{ cursor: 'pointer' }}
+              onClick={handleBarClick}
+            >
+              {data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.color} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+
+        <div className="bottom-chart-label">
+          {bottomChartLabel}
         </div>
 
-        <div className="bottom-block">
-          <div className="bottom-chart-label">
-            {bottomChartLabel}
-          </div>
+<div className="performance-chart-container">
+  <ResponsiveContainer width="100%" height={75}>
+    <BarChart
+      data={performanceData}
+      margin={{ top: 0, right: 0, left: 0, bottom: 13}}
+    >
+      <XAxis hide />
+      <Tooltip content={<CustomTooltip />} />
+      <Bar dataKey="value">
+        {performanceData.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={entry.color} />
+        ))}
+        <LabelList 
+          dataKey="value" 
+          position={(entry) => entry.value === 0 ? "top" : "insideMiddle"}
+          fill="#000"
+          fontSize={14}
+          formatter={(value) => value}
+          offset={5} // Отступ для значений над колонкой
+        />
+      </Bar>
+    </BarChart>
+  </ResponsiveContainer>
 
-          <div className="performance-chart-container">
-            <div className="performance-chart-wrapper">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  data={performanceData}
-                  layout="vertical"
-                  margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
-                >
-                  <YAxis type="category" dataKey="name" hide />
-                  <XAxis type="number" hide />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Bar dataKey="value" barSize={20}>
-                    {performanceData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                    <LabelList 
-                      dataKey="value" 
-                      position="insideRight"
-                      fill="#000"
-                      fontSize={12}
-                    />
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
+
+
+          <div className="performance-legend3">
+            <div className="legend-item3">
+              <div className="legend-color3" style={{ background: '#D4EFDF' }} />
+              <span>Транзакции в срок ({performanceData[0].value})</span>
             </div>
-
-            <div className="performance-legend3">
-              <div className="legend-item3">
-                <div className="legend-color3" style={{ background: '#D4EFDF' }} />
-                <span>Транзакции в срок ({performanceData[0].value})</span>
-              </div>
-              <div className="legend-item3">
-                <div className="legend-color3" style={{ background: '#FFB6B6' }} />
-                <span>Транзакции с задержкой ({performanceData[1].value})</span>
-              </div>
+            <div className="legend-item3">
+              <div className="legend-color3" style={{ background: '#FFB6B6' }} />
+              <span>Транзакции с задержкой ({performanceData[1].value})</span>
             </div>
           </div>
         </div>
