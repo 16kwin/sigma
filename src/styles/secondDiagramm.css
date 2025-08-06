@@ -55,6 +55,7 @@
 .second-cell.cell-2 {
   /*  Убедимся, что используем flexbox и выравнивание */
   display: flex;
+   min-height: 0;
   flex-direction: column;
   align-items: center; /*  Центрируем по горизонтали */
   text-align: center; /*  Центрируем текст */
