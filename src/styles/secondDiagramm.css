@@ -29,7 +29,7 @@
 .second-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 60% 40%;
+  grid-template-rows: 60% 35%;
   gap: 10px;
   flex-grow: 1;
   padding: 5px;
