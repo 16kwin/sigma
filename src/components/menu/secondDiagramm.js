@@ -200,7 +200,7 @@ const CustomTooltip = ({ active, payload }) => {
     height: '85px', 
     minWidth: '250px',
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'center',
      position: 'relative',
     gap: '10px'
   }}>
