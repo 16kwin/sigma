@@ -1,4 +1,4 @@
-/* Основной контейнер */
+/* Основные стили контейнера */
 .third-container {
   flex-shrink: 0;
   background-color: white;
@@ -10,7 +10,7 @@
   flex-direction: column;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   flex: 1;
-  min-height: 0; /* Важно для корректного сжатия flex-элементов */
+  min-height: 0;
 }
 
 /* Шапка */
@@ -24,7 +24,7 @@
   margin: -10px -10px 10px -10px;
 }
 
-/* Блок с заголовком и кнопками */
+/* Блок с заголовком и переключателями */
 .volume-and-buttons {
   display: flex;
   flex-direction: column;
@@ -44,7 +44,7 @@
   align-items: center;
 }
 
-/* Стили переключателя Месяц/Год */
+/* Стили переключателя */
 .toggle-option {
   display: flex;
   align-items: center;
@@ -86,34 +86,34 @@
   border: 1px solid #2196F3;
   padding: 15px;
   gap: 15px;
-  min-height: 0; /* Критично для flex-вложенности */
+  min-height: 0;
 }
 
-/* Контейнер для верхнего графика */
+/* Верхний график */
 .upper-chart-container {
-  flex: 3; /* Соотношение 60% */
-  min-height: 150px; /* Минимальная высота */
-  display: flex;
-  flex-direction: column;
+  flex: 3;
+  min-height: 150px;
 }
 
-/* Контейнер для нижнего графика */
+/* Нижний график */
 .lower-chart-container {
-  flex: 2; /* Соотношение 40% */
+  flex: 2;
   min-height: 100px;
-  display: flex;
-  flex-direction: column;
 }
 
-/* Общие стили для графиков Recharts */
+/* Общие стили для Recharts */
 .recharts-wrapper {
   width: 100% !important;
-  height: 100% !important; /* Заполняем родительский контейнер */
-  min-height: inherit; /* Наследуем min-height */
+  height: 100% !important;
 }
 
 .recharts-surface {
-  overflow: visible; /* Чтобы не обрезались подписи */
+  overflow: visible;
+}
+
+/* Специфичные стили для цветов графиков */
+.recharts-bar .recharts-bar-rectangles .recharts-rectangle {
+  fill: inherit;
 }
 
 /* Подпись между графиками */
@@ -124,14 +124,14 @@
   margin: 5px 0;
 }
 
-/* Стили для нижнего графика и легенды */
+/* Контейнер нижнего графика */
 .performance-chart-container {
   display: flex;
   width: 100%;
   align-items: center;
-  flex: 1;
 }
 
+/* Легенда */
 .performance-legend3 {
   margin-left: 20px;
   padding: 8px;
@@ -144,7 +144,7 @@
 .legend-item3 {
   display: flex;
   align-items: center;
-  font-size: 12px; /* Увеличено для читаемости */
+  font-size: 12px;
   margin: 4px 0;
 }
 
