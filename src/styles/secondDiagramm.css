@@ -63,7 +63,8 @@
     padding-bottom: 0; /* Убираем внутренний отступ снизу */
 }
 
-.chart-wrapper { /* Занимает все доступное пространство */
+.chart-wrapper {
+  flex: 1 1 auto;  /* Занимает все доступное пространство */
   display: flex;        /*  Используем flexbox для содержимого */
   align-items: center;  /*  Выравниваем по вертикали */
   justify-content: center; /* Выравниваем по горизонтали */
