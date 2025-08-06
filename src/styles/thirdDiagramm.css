@@ -85,7 +85,14 @@
   padding: 15px;
   gap: 15px;
 }
+.third-main-block > .recharts-wrapper {
+  height: 60% !important; /* Фиксируем соотношение */
+}
 
+/* Для нижнего графика */
+.performance-chart-container {
+  height: 40%; }
+  
 .bottom-chart-label {
   text-align: center;
   font-weight: bold;
