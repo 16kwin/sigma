@@ -56,7 +56,7 @@
 .depo-table-body {
   position: absolute;
   width: 100%;
-  animation: scroll-up 15s linear infinite;
+  animation: scroll-up 40s linear infinite;
 }
 
 .depo-table-body.paused {

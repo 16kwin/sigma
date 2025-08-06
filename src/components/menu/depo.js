@@ -1,14 +1,23 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect, useRef } from 'react';
 import "../../styles/depo.css";
 
 function Depo({ data }) {
   const [isPaused, setIsPaused] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.style.setProperty(
+        '--visible-height', 
+        `${containerRef.current.offsetHeight}px`
+      );
+    }
+  }, []);
 
   const transactionsWithDividers = useMemo(() => {
     if (!data?.transactions) return [];
     const original = data.transactions;
-    // Добавляем разделитель после каждого полного набора данных
-    return [...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }];
+    return [...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }, ...original, { type: 'divider' }];
   }, [data]);
 
   const toggleAnimation = () => {
@@ -36,6 +45,7 @@ function Depo({ data }) {
         <div 
           className="depo-table-body-wrapper"
           onClick={toggleAnimation}
+          ref={containerRef}
         >
           <div 
             className={`depo-table-body ${isPaused ? 'paused' : ''}`}
@@ -60,15 +70,15 @@ function Depo({ data }) {
         </div>
       </div>
       <div className="depo-legend">
-  <div className="legend-item2">
-    <div className="legend-color2 success"></div>
-    <span>Выполнено в срок</span>
-  </div>
-  <div className="legend-item2">
-    <div className="legend-color2 error"></div>
-    <span>Просрочено</span>
-  </div>
-</div>
+        <div className="legend-item2">
+          <div className="legend-color2 success"></div>
+          <span>Выполнено в срок</span>
+        </div>
+        <div className="legend-item2">
+          <div className="legend-color2 error"></div>
+          <span>Просрочено</span>
+        </div>
+      </div>
     </div>
   );
 }
