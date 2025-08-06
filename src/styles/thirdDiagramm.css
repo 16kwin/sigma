@@ -1,3 +1,4 @@
+/* Основной контейнер */
 .third-container {
   flex-shrink: 0;
   background-color: white;
@@ -9,10 +10,12 @@
   flex-direction: column;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   flex: 1;
+  min-height: 0; /* Важно для корректного сжатия flex-элементов */
 }
 
+/* Шапка */
 .third-header {
-  background-color: rgba(66, 194, 244);
+  background-color: #42C2F4;
   color: white;
   padding: 12px 20px;
   text-align: left;
@@ -21,6 +24,7 @@
   margin: -10px -10px 10px -10px;
 }
 
+/* Блок с заголовком и кнопками */
 .volume-and-buttons {
   display: flex;
   flex-direction: column;
@@ -40,6 +44,7 @@
   align-items: center;
 }
 
+/* Стили переключателя Месяц/Год */
 .toggle-option {
   display: flex;
   align-items: center;
@@ -64,7 +69,6 @@
 
 .toggle-option.active .toggle-circle {
   background-color: #42C2F4;
-  border-color: #42C2F4;
 }
 
 .toggle-option.active {
@@ -72,77 +76,82 @@
   font-weight: 500;
 }
 
+/* Основной блок с графиками */
 .third-main-block {
   background: white;
   border-radius: 6px;
-  flex-grow: 1;
+  flex: 1;
   display: flex;
-  flex: 1; /* Занимаем всё доступное пространство */
-  min-height: 0;
   flex-direction: column;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   border: 1px solid #2196F3;
   padding: 15px;
   gap: 15px;
-}
-.third-main-block > .recharts-wrapper {
-  height: 60% !important; /* Фиксируем соотношение */
+  min-height: 0; /* Критично для flex-вложенности */
 }
 
-/* Для нижнего графика */
-.performance-chart-container {
-  height: 40%; }
-  
+/* Контейнер для верхнего графика */
+.upper-chart-container {
+  flex: 3; /* Соотношение 60% */
+  min-height: 150px; /* Минимальная высота */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Контейнер для нижнего графика */
+.lower-chart-container {
+  flex: 2; /* Соотношение 40% */
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Общие стили для графиков Recharts */
+.recharts-wrapper {
+  width: 100% !important;
+  height: 100% !important; /* Заполняем родительский контейнер */
+  min-height: inherit; /* Наследуем min-height */
+}
+
+.recharts-surface {
+  overflow: visible; /* Чтобы не обрезались подписи */
+}
+
+/* Подпись между графиками */
 .bottom-chart-label {
   text-align: center;
   font-weight: bold;
   color: #333;
+  margin: 5px 0;
 }
 
-.recharts-legend-item {
-  display: inline-flex;
-  align-items: center;
-  margin-right: 20px;
-}
-
-.recharts-legend-item-text {
-  margin-left: 5px;
-  font-size: 14px;
-}
+/* Стили для нижнего графика и легенды */
 .performance-chart-container {
   display: flex;
   width: 100%;
   align-items: center;
+  flex: 1;
 }
 
 .performance-legend3 {
   margin-left: 20px;
-  padding: 5px;
+  padding: 8px;
   border: 1px solid #eee;
   border-radius: 8px;
   background: #f9f9f9;
   width: 40%;
-  max-height: 50px;
 }
 
 .legend-item3 {
   display: flex;
   align-items: center;
-  font-size: 7px;
+  font-size: 12px; /* Увеличено для читаемости */
+  margin: 4px 0;
 }
 
 .legend-color3 {
-  width: 20px;
-  height: 20px;
-  margin: 2px;
-  margin-right: 10px;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
   border-radius: 4px;
   border: 1px solid #ddd;
-}
-
-.bottom-chart-label {
-  text-align: center;
-  margin: 10px 0;
-  font-weight: bold;
-  color: #333;
 }
