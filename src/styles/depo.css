@@ -125,7 +125,7 @@
     transform: translateY(0);
   }
   100% {
-    transform: translateY(calc(-100% + var(--visible-height, 500px)));
+    transform: translateY(calc(-100% + var(--visible-height, 200px)));
   }
 }
 
