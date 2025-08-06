@@ -115,7 +115,7 @@
 /* Разделители */
 .depo-divider {
   height: 1px;
-  background-color: #eee;
+  background-color: red;
   margin: 5px 0;
 }
 
