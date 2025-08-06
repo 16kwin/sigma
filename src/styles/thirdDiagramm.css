@@ -77,6 +77,8 @@
   border-radius: 6px;
   flex-grow: 1;
   display: flex;
+  flex: 1; /* Занимаем всё доступное пространство */
+  min-height: 0;
   flex-direction: column;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   border: 1px solid #2196F3;
