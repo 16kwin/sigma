@@ -161,33 +161,16 @@ const CustomTooltip = ({ active, payload }) => {
       <div className="second-grid">
         
         {/* 1. Первая диаграмма (ваш оригинальный код) */}
-<div className="second-cell cell-1">
-  <div className="chart-title">ВЫПОЛНЕНИЕ В СРОК ОПЕРАЦИЙ ПО ТРАНЗАКЦИЯМ В РАБОТЕ</div>
-  <div className="chart-wrapper">
-    {isLoading ? (
-      <div className="loading-placeholder">Загрузка...</div>
-    ) : (
-      <Pie 
-        data={chartData} 
-        options={{
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { 
-              display: true, 
-              position: "bottom", 
-              align: "start",
-              labels: {
-                boxWidth: 12,
-                padding: 20
-              }
-            }
-          }
-        }}
-      />
-    )}
-  </div>
-</div>
+        <div className="second-cell cell-1">
+          ВЫПОЛНЕНИЕ В СРОК ОПЕРАЦИЙ ПО ТРАНЗАКЦИЯМ В РАБОТЕ
+          <div className="chart-wrapper">
+            {isLoading ? (
+              <div className="loading-placeholder">Загрузка...</div>
+            ) : (
+              <Pie data={chartData} options={options} />
+            )}
+          </div>
+        </div>
 
         {/* 2. Вторая диаграмма (ваш оригинальный код) */}
         <div className="second-cell cell-2">
