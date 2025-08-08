@@ -61,6 +61,7 @@
     outline: none; /* Убираем стандартный outline */
 }
 .filter-legend5 {
+  font-size: 16px;
   display: flex;
   gap: 15px;
   margin-left: auto; /* Автоматический отступ слева - прижимает к правому краю */

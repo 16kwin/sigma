@@ -37,7 +37,7 @@
 }
 .stats-table {
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .stats-table th {
@@ -55,7 +55,7 @@
 .stats-subheader {
   border: 1px solid #ddd;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.4;
 }
 
