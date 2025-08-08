@@ -21,14 +21,14 @@
 .filter-label {
   /* display: flex;  Убрал, так как flex-direction: column нужен если label сам блок. Тут он inline */
   /* flex-direction: column; */
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold; /* Сделаем метки жирнее */
   color: #333;
 }
 /* Добавьте в productionFilter.css */
 .filter-label2 {
   display: flex;
-    font-size: 14px;
+    font-size: 16px;
     align-items: center;
      margin-top: 7px;
     font-weight: bold;
@@ -84,7 +84,7 @@
 }
 
 .legend-label5 {
-  font-size: 13px;
+  font-size: 16px;
   color: #333;
   white-space: nowrap;
 }
