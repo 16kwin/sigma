@@ -25,7 +25,6 @@ const Production = () => {
     setSelectedYear(newFilterParams.year);
     setSelectedMonth(newFilterParams.month);
     setSelectedPercentage(newFilterParams.percentage);
-    setShowOnlyActive(newFilterParams.showOnlyActive || false);
   };
 
   const filterParams = useMemo(() => ({

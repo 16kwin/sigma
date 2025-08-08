@@ -25,7 +25,6 @@ const ProductionFilter = ({ onFilterChange }) => {
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   const [selectedPercentage, setSelectedPercentage] = useState(80);
-  const [showOnlyActive, setShowOnlyActive] = useState(false);
 
   const generateYears = () => {
     const years = [];
@@ -61,9 +60,6 @@ const ProductionFilter = ({ onFilterChange }) => {
     setSelectedPercentage(parseInt(event.target.value, 10));
   };
 
-  const handleActiveFilterChange = (event) => {
-    setShowOnlyActive(event.target.checked);
-  };
 
   useEffect(() => {
     if (onFilterChange) {
