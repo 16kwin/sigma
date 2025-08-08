@@ -13,7 +13,6 @@ const Production = () => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const [selectedPercentage, setSelectedPercentage] = useState(80);
-  const [showOnlyActive, setShowOnlyActive] = useState(false);
 
   // Тексты для тултипов
   const TOOLTIPS = {
@@ -34,12 +33,10 @@ const Production = () => {
     month: selectedMonth,
   }), [selectedYear, selectedMonth]);
 
-  const filteredData = useMemo(() => {
-    if (!data) return null;
-    return showOnlyActive 
-      ? data.filter(employee => employee.transactionCount > 0) 
-      : data;
-  }, [data, showOnlyActive]);
+const filteredData = useMemo(() => {
+  if (!data) return null;
+  return data.filter(employee => employee.transactionCount > 0);
+}, [data]);
 
   const getPercentageCellStyle = (percentageValue, comparisonValue) => {
     if (percentageValue === "Нет данных") {

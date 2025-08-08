@@ -131,18 +131,6 @@ const ProductionFilter = ({ onFilterChange }) => {
         </select>
       </div>
 
-      <div className="filter-item">
-        <label htmlFor="active-filter" className="filter-label2">
-          <input
-            id="active-filter"
-            type="checkbox"
-            checked={showOnlyActive}
-            onChange={handleActiveFilterChange}
-            className="filter-checkbox"
-          />
-          Только активные
-        </label>
-      </div>
       <div className="filter-legend5">
   <div className="legend-item5">
     <div className="legend-color5 success"></div>
