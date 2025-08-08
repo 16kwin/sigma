@@ -66,11 +66,10 @@ const ProductionFilter = ({ onFilterChange }) => {
       onFilterChange({
         year: selectedYear,
         month: selectedMonth,
-        percentage: selectedPercentage,
-        showOnlyActive: showOnlyActive
+        percentage: selectedPercentage
       });
     }
-  }, [selectedYear, selectedMonth, selectedPercentage, showOnlyActive, onFilterChange]);
+  }, [selectedYear, selectedMonth, selectedPercentage,onFilterChange]);
 
   const isMonthDisabled = (monthValue) => {
     return selectedYear === currentYear && monthValue > currentMonth;
