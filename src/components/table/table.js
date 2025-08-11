@@ -44,7 +44,7 @@ function Table() {
  const TOOLTIPS = {
     planPpp: "Суммарное время за все нормативы на операции и опции",
     factTime: "(Дата и время завершения операции (факт))-(Дата и время начала операции (факт))",
-    deadline: "|((Норматив на операцию + норматив на опцию)/(Затраченное факт-Устранение замеччаний по потерям)*100)-100|",
+    deadline: "|((Затраченное факт-Устранение замеччаний по потерям)/(Норматив на операцию + норматив на опцию)*100)-100|",
     planStart: "Планируемая дата начала по БОС+Нормативы на операцию и опции (с учетом рабочих дней и суточной нормы)",
     forecastStart: "Прогнозируемая дата начала (Управление сделками)+Нормативы на операцию и опции (с учетом рабочих дней и суточной нормы)",
     factStart: "Фактическая дата и время начала выполнения операции",
@@ -218,7 +218,7 @@ const formatAdjustedPercentage = (value) => {
           ? 'lightyellow'
           : transactions.vhodControlTimeExceeded === 'Контроль руководителя'  // Добавлено
             ? 'rgba(235, 67, 53)'  // Добавлено
-            : getAdjustedPercentage(transactions.vhodControlTimeExceeded) >= 0
+            : getAdjustedPercentage(transactions.vhodControlTimeExceeded) <= 0
               ? 'lightgreen'
               : '#FFB6B6',
     }}>
@@ -254,7 +254,7 @@ const formatAdjustedPercentage = (value) => {
           ? 'lightyellow'
                     : transactions.electricTimeExceeded === 'Контроль руководителя'  // Добавлено
             ? 'rgba(235, 67, 53)' 
-          : getAdjustedPercentage(transactions.electricTimeExceeded) >= 0
+          : getAdjustedPercentage(transactions.electricTimeExceeded) <= 0
             ? 'lightgreen'
             : '#FFB6B6',
     }}>
@@ -288,7 +288,7 @@ const formatAdjustedPercentage = (value) => {
           ? 'lightyellow'
                     : transactions.mechanicTimeExceeded === 'Контроль руководителя'  // Добавлено
             ? 'rgba(235, 67, 53)' 
-          : getAdjustedPercentage(transactions.mechanicTimeExceeded) >= 0
+          : getAdjustedPercentage(transactions.mechanicTimeExceeded) <= 0
             ? 'lightgreen'
             : '#FFB6B6',
     }}>
@@ -322,7 +322,7 @@ const formatAdjustedPercentage = (value) => {
           ? 'lightyellow'
                     : transactions.electronTimeExceeded === 'Контроль руководителя'  // Добавлено
             ? 'rgba(235, 67, 53)' 
-          : getAdjustedPercentage(transactions.electronTimeExceeded) >= 0
+          : getAdjustedPercentage(transactions.electronTimeExceeded) <= 0
             ? 'lightgreen'
             : '#FFB6B6',
     }}>
@@ -357,7 +357,7 @@ const formatAdjustedPercentage = (value) => {
           ? 'lightyellow'
                     : transactions.techTimeExceeded === 'Контроль руководителя'  // Добавлено
             ? 'rgba(235, 67, 53)' 
-          : getAdjustedPercentage(transactions.techTimeExceeded) >= 0
+          : getAdjustedPercentage(transactions.techTimeExceeded) <= 0
             ? 'lightgreen'
             : '#FFB6B6',
     }}>
@@ -391,7 +391,7 @@ const formatAdjustedPercentage = (value) => {
           ? 'lightyellow'
                     : transactions.vihodControlTimeExceeded === 'Контроль руководителя'  // Добавлено
             ? 'rgba(235, 67, 53)' 
-          : getAdjustedPercentage(transactions.vihodControlTimeExceeded) >= 0
+          : getAdjustedPercentage(transactions.vihodControlTimeExceeded) <= 0
             ? 'lightgreen'
             : '#FFB6B6',
     }}>
@@ -425,7 +425,7 @@ const formatAdjustedPercentage = (value) => {
           ? 'lightyellow'
                     : transactions.transportTimeExceeded === 'Контроль руководителя'  // Добавлено
             ? 'rgba(235, 67, 53)' 
-          : getAdjustedPercentage(transactions.transportTimeExceeded) >= 0
+          : getAdjustedPercentage(transactions.transportTimeExceeded) <= 0
             ? 'lightgreen'
             : '#FFB6B6',
     }}>
