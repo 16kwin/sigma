@@ -84,9 +84,9 @@ function Depo({ data }) {
 }
 
 function getStatusClass(status) {
-  if (status === 'да') return 'success';
+  if (status === 'да') return 'error';
   if (status === 'Нет данных') return 'white';
-  return 'error';
+  return 'success';
 }
 
 export default Depo;
