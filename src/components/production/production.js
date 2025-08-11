@@ -66,6 +66,37 @@ const filteredData = useMemo(() => {
       console.error("Error parsing percentage:", percentageValue, e);
       return { backgroundColor: 'white' };
     }
+    
+  };
+   const getPercentageCellStyle2 = (percentageValue, comparisonValue) => {
+    if (percentageValue === "Нет данных") {
+      return { backgroundColor: 'lightyellow' };
+    }
+
+    // Добавленная обработка для Infinity и "Контроль руководителя"
+    if (percentageValue === "Infinity" || percentageValue === "Контроль руководителя") {
+      return { 
+        backgroundColor: 'rgba(235, 67, 53)',
+        color: 'white'
+      };
+    }
+
+    try {
+      const numericValue = parseFloat(percentageValue.toString().replace(',', '.').replace('%', ''));
+
+      if (isNaN(numericValue)) {
+        return { backgroundColor: 'white' };
+      }
+
+      if (numericValue >= comparisonValue) {
+        return { backgroundColor: '#FFB6B6' };
+      } else {
+        return { backgroundColor: '#D4EFDF' };
+      }
+    } catch (e) {
+      console.error("Error parsing percentage:", percentageValue, e);
+      return { backgroundColor: 'white' };
+    }
   };
 
   useEffect(() => {
@@ -161,11 +192,13 @@ const filteredData = useMemo(() => {
                   <td className='colonka2'>{employee.totalWorkTime}</td>
                   <td
                     className='colonka2'
-                    style={getPercentageCellStyle(employee.workTimePercentage, selectedPercentage)}
+                    style={getPercentageCellStyle2(employee.workTimePercentage, selectedPercentage)}
                   >
                     {employee.workTimePercentage === "Infinity" ? "Контроль руководителя" : employee.workTimePercentage}
                   </td>
+
                   <td className='colonka2'>{employee.hoursMounth}</td>
+
                   <td
                     className='colonka2'
                     style={getPercentageCellStyle(employee.hoursMounthPercentage, selectedPercentage)}
