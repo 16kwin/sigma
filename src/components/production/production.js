@@ -68,36 +68,6 @@ const filteredData = useMemo(() => {
     }
     
   };
-   const getPercentageCellStyle2 = (percentageValue, comparisonValue) => {
-    if (percentageValue === "Нет данных") {
-      return { backgroundColor: 'lightyellow' };
-    }
-
-    // Добавленная обработка для Infinity и "Контроль руководителя"
-    if (percentageValue === "Infinity" || percentageValue === "Контроль руководителя") {
-      return { 
-        backgroundColor: 'rgba(235, 67, 53)',
-        color: 'white'
-      };
-    }
-
-    try {
-      const numericValue = parseFloat(percentageValue.toString().replace(',', '.').replace('%', ''));
-
-      if (isNaN(numericValue)) {
-        return { backgroundColor: 'white' };
-      }
-
-      if (numericValue >= comparisonValue) {
-        return { backgroundColor: '#FFB6B6' };
-      } else {
-        return { backgroundColor: '#D4EFDF' };
-      }
-    } catch (e) {
-      console.error("Error parsing percentage:", percentageValue, e);
-      return { backgroundColor: 'white' };
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -146,7 +116,7 @@ const filteredData = useMemo(() => {
               <th className='colonkahead head2' data-tooltip-id="onTimeRatio-tooltip">Доля этапов, <br/>выполненных в срок</th>
               <th className='colonkahead head2' data-tooltip-id="normTime-tooltip">Нормативное время работы, час</th>
               <th className='colonkahead head2' data-tooltip-id="actualTime-tooltip">Фактическое время работы, час</th>
-              <th className='colonkahead head2' data-tooltip-id="normCompletion-tooltip">Коэффициент выполнености норм, %</th>
+              <th className='colonkahead head2' data-tooltip-id="normCompletion-tooltip">Коэффициент выполнености норм</th>
               <th className='colonkahead head2' data-tooltip-id="workTimeFund-tooltip">Фонд рабочего времени, час</th>
               <th className='colonkahead head2' data-tooltip-id="productivity-tooltip">Загрузка сотрудника</th>
             </tr>
@@ -192,7 +162,7 @@ const filteredData = useMemo(() => {
                   <td className='colonka2'>{employee.totalWorkTime}</td>
                   <td
                     className='colonka2'
-                    style={getPercentageCellStyle2(employee.workTimePercentage, selectedPercentage)}
+                    style={getPercentageCellStyle(employee.workTimePercentage, selectedPercentage)}
                   >
                     {employee.workTimePercentage === "Infinity" ? "Контроль руководителя" : employee.workTimePercentage}
                   </td>
