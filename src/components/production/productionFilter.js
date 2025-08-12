@@ -1,4 +1,3 @@
-// src/components/ProductionFilter.js
 import React, { useState, useEffect } from 'react';
 import './productionFilter.css';
 
@@ -24,7 +23,7 @@ const ProductionFilter = ({ onFilterChange }) => {
 
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
-  const [selectedPercentage, setSelectedPercentage] = useState(80);
+  const [selectedPercentage, setSelectedPercentage] = useState(0.8); // Изменено на 0.8 (было 80)
 
   const generateYears = () => {
     const years = [];
@@ -37,10 +36,14 @@ const ProductionFilter = ({ onFilterChange }) => {
   };
 
   const generatePercentageOptions = () => {
-    const options = [];
-    for (let i = 50; i <= 100; i += 10) {
-      options.push({ value: i, label: `${i}%` });
-    }
+    const options = [
+      { value: 1, label: '1' },    // Было 100%
+      { value: 0.9, label: '0.9' }, // Было 80%
+      { value: 0.8, label: '0.8' }, // Было 60%
+      { value: 0.7, label: '0.7' }, // Добавлено
+      { value: 0.6, label: '0.6' },
+      { value: 0.5, label: '0.5' }   // Добавлено
+    ];
     return options;
   };
 
@@ -57,9 +60,8 @@ const ProductionFilter = ({ onFilterChange }) => {
   };
 
   const handlePercentageChange = (event) => {
-    setSelectedPercentage(parseInt(event.target.value, 10));
+    setSelectedPercentage(parseFloat(event.target.value)); // Изменено на parseFloat
   };
-
 
   useEffect(() => {
     if (onFilterChange) {
@@ -69,7 +71,7 @@ const ProductionFilter = ({ onFilterChange }) => {
         percentage: selectedPercentage
       });
     }
-  }, [selectedYear, selectedMonth, selectedPercentage,onFilterChange]);
+  }, [selectedYear, selectedMonth, selectedPercentage, onFilterChange]);
 
   const isMonthDisabled = (monthValue) => {
     return selectedYear === currentYear && monthValue > currentMonth;
@@ -113,7 +115,7 @@ const ProductionFilter = ({ onFilterChange }) => {
       </div>
 
       <div className="filter-item">
-        <label htmlFor="percentage-select" className="filter-label">Процент: </label>
+        <label htmlFor="percentage-select" className="filter-label">Коэффициент: </label> {/* Изменено с "Процент" на "Порог" */}
         <select
           id="percentage-select"
           value={selectedPercentage}
@@ -127,19 +129,19 @@ const ProductionFilter = ({ onFilterChange }) => {
       </div>
 
       <div className="filter-legend5">
-  <div className="legend-item5">
-    <div className="legend-color5 success"></div>
-    <span className="legend-label5">Положительные значения</span>
-  </div>
-  <div className="legend-item5">
-    <div className="legend-color5 warning"></div>
-    <span className="legend-label5">Отрицательные значения</span>
-  </div>
-  <div className="legend-item5">
-    <div className="legend-color5 neutral"></div>
-    <span className="legend-label5">Нет данных</span>
-  </div>
-</div>
+        <div className="legend-item5">
+          <div className="legend-color5 success"></div>
+          <span className="legend-label5">Положительные значения</span>
+        </div>
+        <div className="legend-item5">
+          <div className="legend-color5 warning"></div>
+          <span className="legend-label5">Отрицательные значения</span>
+        </div>
+        <div className="legend-item5">
+          <div className="legend-color5 neutral"></div>
+          <span className="legend-label5">Нет данных</span>
+        </div>
+      </div>
     </div>
   );
 };
