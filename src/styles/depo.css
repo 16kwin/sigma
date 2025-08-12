@@ -95,6 +95,9 @@
 .white {
   background-color: white;
 }
+.control{
+  background-color: rgb(235, 67, 53);
+}
 
 /* Фикс для последней ячейки */
 .depo-cell:last-child {
