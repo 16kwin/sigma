@@ -78,6 +78,10 @@ function Depo({ data }) {
           <div className="legend-color2 error"></div>
           <span>Просрочено</span>
         </div>
+         <div className="legend-item2">
+          <div className="legend-color2 control"></div>
+          <span>Контроль руководителя</span>
+        </div>
       </div>
     </div>
   );

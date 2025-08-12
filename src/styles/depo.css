@@ -160,3 +160,6 @@
 .legend-color2.error {
   background-color: #D4EFDF;
 }
+.legend-color2.control {
+  background-color: rgb(235, 67, 53);
+}
