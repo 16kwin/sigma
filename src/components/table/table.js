@@ -167,7 +167,7 @@ const formatAdjustedPercentage = (value) => {
           <Tooltip
   id="percentage-plan-tooltip"
   place="bottom-start"
-  content="|(План ППП/Затрачено факт)*100-100\|"/>
+  content="|(Затрачено факт/План ППП)*100-100|"/>
             <Tooltip
   id="full-tooltip"
   place="bottom-start"
