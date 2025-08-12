@@ -84,9 +84,10 @@ function Depo({ data }) {
 }
 
 function getStatusClass(status) {
-  if (status === 'да') return 'error';
+  if (status === 'да') return 'success';
   if (status === 'Нет данных') return 'white';
-  return 'success';
+  if (status === 'Контроль руководителя') return 'rgb(235, 67, 53)';
+  return 'error';
 }
 
 export default Depo;
