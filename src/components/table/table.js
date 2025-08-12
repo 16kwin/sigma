@@ -456,8 +456,8 @@ const formatAdjustedPercentage = (value) => {
         transactions.percentagePlanPpp === 'Нет данных'
           ? 'lightyellow'
           : getAdjustedPercentage(transactions.percentagePlanPpp) >= 0
-            ? 'lightgreen'
-            : '#FFB6B6',
+            ? '#FFB6B6'
+            : 'lightgreen',
     }} data-tooltip-id="percentage-plan-tooltip">
   {formatAdjustedPercentage(transactions.percentagePlanPpp)}
 </td>
