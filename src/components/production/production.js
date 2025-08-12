@@ -148,7 +148,7 @@ const filteredData = useMemo(() => {
               <th className='colonkahead head2' data-tooltip-id="actualTime-tooltip">Фактическое время работы, час</th>
               <th className='colonkahead head2' data-tooltip-id="normCompletion-tooltip">Коэффициент выполнености норм, %</th>
               <th className='colonkahead head2' data-tooltip-id="workTimeFund-tooltip">Фонд рабочего времени, час</th>
-              <th className='colonkahead head2' data-tooltip-id="productivity-tooltip">Выработка сотрудника, %</th>
+              <th className='colonkahead head2' data-tooltip-id="productivity-tooltip">Загрузка сотрудника</th>
             </tr>
           </thead>
 
