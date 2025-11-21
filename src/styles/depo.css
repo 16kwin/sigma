@@ -56,7 +56,7 @@
 .depo-table-body {
   position: absolute;
   width: 100%;
-  animation: scroll-up 40s linear infinite;
+  animation: scroll-up 120s linear infinite;
 }
 
 .depo-table-body.paused {
@@ -157,11 +157,11 @@
 }
 
 .legend-color2.success {
-  background-color: #FFB6B6;
+  background-color: #D4EFDF;
 }
 
 .legend-color2.error {
-  background-color: #D4EFDF;
+  background-color: #FFB6B6;
 }
 .legend-color2.control {
   background-color: rgb(235, 67, 53);
