@@ -5,6 +5,25 @@ import "./table.css";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 
+// Глобальная конфигурация axios для игнорирования временных зон
+axios.defaults.transformResponse = [
+  function (data) {
+    if (typeof data === 'string') {
+      try {
+        return JSON.parse(data, (key, value) => {
+          if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(value)) {
+            return new Date(value + 'Z'); // Принудительно UTC
+          }
+          return value;
+        });
+      } catch (e) {
+        return data;
+      }
+    }
+    return data;
+  }
+];
+
 function calculateDays(days) {
   if (!days || days === "Нет данных") {
     return "Нет данных";
