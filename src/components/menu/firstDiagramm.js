@@ -87,7 +87,6 @@ function FirstDiagramm({ header }) {
           content="Сумма фактического времени за транзакции/Сумма нормативного времени за транзакции" 
         />
 
-        {/* Остальные блоки (аналогично) */}
         {/* Блок 6 */}
         <div 
           className="block block6" 
@@ -166,7 +165,7 @@ function FirstDiagramm({ header }) {
           <span>
             {isLoading
               ? "Загрузка..."
-              : formatNumber(header.totalProblemHours)}
+              : formatNumber(Math.round(header.totalProblemHours * 10) / 10)}
           </span>
           часов
         </div>
