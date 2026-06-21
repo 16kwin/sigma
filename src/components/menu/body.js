@@ -14,7 +14,7 @@ function Body() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:8082/api/analis/depo");
+        const response = await fetch("http://192.168.88.7:8082/api/analis/depo");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

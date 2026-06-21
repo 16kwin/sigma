@@ -78,7 +78,7 @@ const filteredData = useMemo(() => {
       setLoading(true);
       setError(null);
 
-      let apiUrl = 'http://localhost:8082/api/analis/employees';
+      let apiUrl = 'http://192.168.88.7:8082/api/analis/employees';
 
       if (filterParams.year && filterParams.month) {
         const formattedMonth = filterParams.month < 10 ? `0${filterParams.month}` : `${filterParams.month}`;

@@ -74,7 +74,7 @@ function Table() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8082/api/analis/transactions');
+        const response = await axios.get('http://192.168.88.7:8082/api/analis/transactions');
         setJsonData(response.data);
         setFilteredTransactions(response.data.transactions); // Инициализируем filteredTransactions
       } catch (err) {
